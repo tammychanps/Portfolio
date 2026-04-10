@@ -1,0 +1,19 @@
+# Local-only archive of unrelated files from prior experiments
+# (Trigger.dev workflows, WAT framework, etc.) — kept for reference
+# but not part of the public portfolio repo.
+_archive/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Node / build artifacts (in case we add a build step later)
+node_modules/
+dist/
+build/
+
+# Local screenshots from design iteration
+temporary screenshots/
