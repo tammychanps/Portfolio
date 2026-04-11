@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Change Risk Scoring Engine · Tammy Chan</title>
+  <meta name="description" content="Auditable change risk scoring on 8 weighted dimensions with inherent vs residual risk model from ISO 31000. CAB-ready narrative on an on-premise LLM." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#FAFAF9', ink: '#0A0A0A', ink2: '#1F1F1F',
+            cobalt: '#3366CC', cobalt2: '#1E4FBA', mute: '#767066',
+            line: '#E8E5DD', sage: '#5C8A6B', warmgray: '#F0EEE6',
+            warn: '#C97A2F',
+          },
+          fontFamily: {
+            display: ['"Instrument Serif"', 'Georgia', 'serif'],
+            sans:    ['"Inter"', 'system-ui', 'sans-serif'],
+            mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #1F1F1F; background: #FAFAF9;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+      font-feature-settings: "ss01", "cv11";
+    }
+    .display { font-family: 'Instrument Serif', Georgia, serif; line-height: 1.0; letter-spacing: -0.01em; }
+    .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+    .tabular { font-variant-numeric: tabular-nums; }
+
+    /* Top nav (same as index) */
+    .nav-link { position: relative; color: #1F1F1F; transition: color 200ms ease; }
+    .nav-link::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -6px;
+      height: 2px; background: #3366CC;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 280ms cubic-bezier(.2,.7,.3,1);
+    }
+    .nav-link:hover { color: #3366CC; }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    .underline-wipe {
+      background-image: linear-gradient(currentColor, currentColor);
+      background-size: 0% 1px; background-repeat: no-repeat;
+      background-position: 0 100%;
+      transition: background-size 280ms cubic-bezier(.2,.7,.3,1);
+    }
+    .underline-wipe:hover { background-size: 100% 1px; }
+
+    /* Infographic-specific styles */
+    .case-num { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #3366CC; }
+    .info-card { background: white; border: 1px solid #E8E5DD; padding: 1.5rem; }
+    .info-card-cobalt { background: rgba(51,102,204,0.04); border: 1px solid rgba(51,102,204,0.25); padding: 1.5rem; }
+    .info-card-warm { background: rgba(201,122,47,0.04); border: 1px solid rgba(201,122,47,0.25); padding: 1.5rem; }
+
+    .stat-num { font-family: 'Instrument Serif', Georgia, serif; font-size: 3rem; line-height: 0.9; color: #3366CC; }
+    .stat-num-large { font-family: 'Instrument Serif', Georgia, serif; font-size: 4.5rem; line-height: 0.85; color: #3366CC; }
+
+    /* Flow arrow connecting steps */
+    .flow-arrow {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3366CC;
+      font-size: 1.5rem;
+    }
+    @media (max-width: 767px) {
+      .flow-arrow { transform: rotate(90deg); margin: 0.5rem 0; }
+    }
+
+    /* Stat label */
+    .stat-label { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: #767066; }
+
+    /* Tag pill */
+    .tech-tag { display: inline-flex; align-items: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #767066; border: 1px solid #E8E5DD; padding: 0.25rem 0.55rem; }
+  </style>
+</head>
+
+<body class="font-sans text-ink2 bg-paper">
+
+  <!-- TOP NAV -->
+  <header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-line">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+      <a href="../index.html" class="display text-ink text-2xl">
+        Tammy Chan<span class="text-cobalt italic text-xl">.</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm">
+        <a href="../index.html#home"     class="nav-link">Home</a>
+        <a href="../index.html#about"    class="nav-link">About</a>
+        <a href="../index.html#projects" class="nav-link">Projects</a>
+        <a href="../index.html#building" class="nav-link">Building</a>
+        <a href="../index.html#contact"  class="nav-link">Contact</a>
+      </nav>
+      <a href="../assets/resume.pdf" class="inline-flex items-center gap-2 bg-ink text-paper px-4 py-2 text-xs uppercase tracking-widest hover:bg-cobalt transition-colors">
+        Résumé <span aria-hidden>↓</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ────────────  INFOGRAPHIC  ──────────── -->
+  <main class="px-6 lg:px-10">
+    <div class="max-w-6xl mx-auto pt-12 pb-20">
+
+      <!-- Breadcrumb -->
+      <div class="mono text-[10px] uppercase tracking-widest text-mute mb-6">
+        <a href="../index.html#projects" class="hover:text-cobalt">← All projects</a>
+      </div>
+
+      <!-- Header band -->
+      <div class="border-t-2 border-cobalt pt-6 mb-10">
+        <div class="flex items-center justify-between mb-3 flex-wrap gap-3">
+          <div class="case-num">Case 01 · Change risk</div>
+          <a href="https://github.com/tammychanps/change-risk-scoring-engine" target="_blank" rel="noopener" class="text-sm text-cobalt underline-wipe">View on GitHub ↗</a>
+        </div>
+        <h1 class="display text-ink text-5xl md:text-6xl lg:text-7xl leading-[1.0] mb-4 [text-wrap:balance]">
+          Change Risk <span class="italic text-cobalt">Scoring Engine</span>
+        </h1>
+        <p class="text-base lg:text-lg text-ink2/85 leading-relaxed max-w-3xl">
+          Auditable change risk scoring on 8 weighted dimensions, with inherent vs residual risk modeled from ISO 31000. Generates a CAB-ready narrative on an on-premise LLM. Designed for environments where regulators care.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mt-6">
+          <span class="tech-tag">Python 3.12</span>
+          <span class="tech-tag">LangChain</span>
+          <span class="tech-tag">FAISS</span>
+          <span class="tech-tag">Ollama</span>
+          <span class="tech-tag">131 tests</span>
+          <span class="tech-tag">ISO 31000</span>
+        </div>
+      </div>
+
+      <!-- ─── 3-column infographic grid: Problem · Solution · Impact ─── -->
+      <div class="grid lg:grid-cols-3 gap-6 mb-10">
+
+        <!-- PROBLEM -->
+        <div class="info-card-warm">
+          <div class="case-num text-warn mb-3">·· The Problem</div>
+          <h2 class="display text-2xl text-ink mb-4 leading-tight">30 to 60 minutes per change. Wildly inconsistent reviewers.</h2>
+          <p class="text-sm text-ink2/85 leading-relaxed mb-4">
+            Every production change at a bank goes through a CAB. Analysts manually review each request, cross-reference past incidents, write risk assessments. Conservative reviewers block changes. Liberal ones miss critical risks.
+          </p>
+          <ul class="text-sm text-ink2/80 space-y-2">
+            <li class="flex gap-2"><span class="text-warn">●</span> Manual review per change</li>
+            <li class="flex gap-2"><span class="text-warn">●</span> No standard scoring rubric</li>
+            <li class="flex gap-2"><span class="text-warn">●</span> Mitigations not tracked across revisions</li>
+            <li class="flex gap-2"><span class="text-warn">●</span> Cloud AI not allowed for sensitive change data</li>
+          </ul>
+        </div>
+
+        <!-- SOLUTION -->
+        <div class="info-card-cobalt">
+          <div class="case-num mb-3">·· The Solution</div>
+          <h2 class="display text-2xl text-ink mb-4 leading-tight">8 dimensions, deterministic scoring, AI-narrated.</h2>
+          <p class="text-sm text-ink2/85 leading-relaxed mb-4">
+            Scores each change on 8 weighted risk dimensions, retrieves similar past changes via vector search, generates a CAB-ready narrative on an on-premise LLM. Deterministic scoring stays auditable. The AI layer produces the explanation.
+          </p>
+          <ul class="text-sm text-ink2/85 space-y-2">
+            <li class="flex gap-2"><span class="text-cobalt">●</span> 8 weighted dimensions, 1-5 each</li>
+            <li class="flex gap-2"><span class="text-cobalt">●</span> Inherent vs residual risk (ISO 31000)</li>
+            <li class="flex gap-2"><span class="text-cobalt">●</span> RAG-retrieved similar past changes</li>
+            <li class="flex gap-2"><span class="text-cobalt">●</span> All processing local, no data leaves the bank</li>
+          </ul>
+        </div>
+
+        <!-- IMPACT -->
+        <div class="info-card">
+          <div class="case-num mb-3">·· The Impact</div>
+          <h2 class="display text-2xl text-ink mb-4 leading-tight">CAB-ready report in under a minute.</h2>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <div class="stat-num">~60×</div>
+              <div class="stat-label mt-2">Faster than manual</div>
+            </div>
+            <div>
+              <div class="stat-num">131</div>
+              <div class="stat-label mt-2">Pytest tests</div>
+            </div>
+          </div>
+          <p class="text-sm text-ink2/85 leading-relaxed">
+            Inherent vs residual gives reviewers a clear before/after as mitigations land. All processing local. Designed for PCI DSS, SOX, FFIEC.
+          </p>
+        </div>
+      </div>
+
+      <!-- ─── How it works (horizontal flow diagram) ─── -->
+      <div class="bg-warmgray/40 border border-line p-8 lg:p-10 mb-10">
+        <div class="case-num mb-3">·· How It Works</div>
+        <h2 class="display text-3xl text-ink mb-8 leading-tight">A change request goes in. A CAB-ready report comes out.</h2>
+
+        <!-- 5-step flow -->
+        <div class="grid md:grid-cols-9 gap-4 items-stretch">
+          <!-- Step 1 -->
+          <div class="md:col-span-1 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-full bg-paper border-2 border-cobalt flex items-center justify-center mono text-cobalt font-bold mb-3">01</div>
+            <div class="mono text-[9px] uppercase tracking-widest text-mute">INPUT</div>
+            <div class="text-xs text-ink2 mt-1">Change request JSON</div>
+          </div>
+          <div class="md:col-span-1 flow-arrow">→</div>
+          <!-- Step 2 -->
+          <div class="md:col-span-1 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-full bg-paper border-2 border-cobalt flex items-center justify-center mono text-cobalt font-bold mb-3">02</div>
+            <div class="mono text-[9px] uppercase tracking-widest text-mute">SCORE</div>
+            <div class="text-xs text-ink2 mt-1">8 dimensions weighted</div>
+          </div>
+          <div class="md:col-span-1 flow-arrow">→</div>
+          <!-- Step 3 -->
+          <div class="md:col-span-1 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-full bg-paper border-2 border-cobalt flex items-center justify-center mono text-cobalt font-bold mb-3">03</div>
+            <div class="mono text-[9px] uppercase tracking-widest text-mute">RETRIEVE</div>
+            <div class="text-xs text-ink2 mt-1">Similar past changes (FAISS)</div>
+          </div>
+          <div class="md:col-span-1 flow-arrow">→</div>
+          <!-- Step 4 -->
+          <div class="md:col-span-1 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-full bg-paper border-2 border-cobalt flex items-center justify-center mono text-cobalt font-bold mb-3">04</div>
+            <div class="mono text-[9px] uppercase tracking-widest text-mute">NARRATE</div>
+            <div class="text-xs text-ink2 mt-1">On-premise LLM</div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-8 border-t border-line text-center">
+          <div class="mono text-[9px] uppercase tracking-widest text-mute mb-1">OUTPUT</div>
+          <div class="text-base text-ink">CAB-ready risk report with Go / No-Go recommendation, mitigation list, and inherent vs residual scores</div>
+        </div>
+      </div>
+
+      <!-- ─── Bottom: 8 dimensions ─── -->
+      <div class="grid lg:grid-cols-12 gap-6 mb-10">
+        <div class="lg:col-span-5">
+          <div class="case-num mb-3">·· The 8 dimensions</div>
+          <h2 class="display text-3xl text-ink mb-4 leading-tight">Each one is a question. Each one has a weight.</h2>
+          <p class="text-sm text-ink2/85 leading-relaxed">
+            The deterministic scoring layer evaluates each change against eight dimensions weighted by configurable risk policy. The weighted average maps to a 1-5 risk band. Mitigations addressed in subsequent revisions reduce specific dimensions, producing a residual score that drives the Go / No-Go recommendation.
+          </p>
+        </div>
+        <div class="lg:col-span-7">
+          <div class="grid grid-cols-2 gap-3 text-sm">
+            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">D1</span>Scope &amp; Blast Radius</div>
+            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">D2</span>Change Complexity</div>
+            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">D3</span>Security Exposure</div>
+            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">D4</span>Customer Visibility</div>
+            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">D5</span>Rollback Readiness</div>
+            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">D6</span>Deployment Window</div>
+            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">D7</span>Team Experience</div>
+            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">D8</span>Recent Stability</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer band: who it's for + CTA -->
+      <div class="border-t-2 border-ink pt-8 grid lg:grid-cols-12 gap-6 items-end">
+        <div class="lg:col-span-8">
+          <div class="case-num mb-2">·· Designed for</div>
+          <p class="text-base lg:text-lg text-ink2 leading-relaxed">
+            Bank change advisory boards, regulated fintech release engineers, technology risk teams in PCI DSS, SOX, and FFIEC environments. Anyone who needs the auditability of deterministic scoring and the explanation of an AI narrative, without sending sensitive change data to a cloud model.
+          </p>
+        </div>
+        <div class="lg:col-span-4 flex flex-wrap gap-3 justify-end">
+          <a href="https://github.com/tammychanps/change-risk-scoring-engine" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-xs uppercase tracking-widest hover:bg-cobalt transition-colors">
+            View on GitHub ↗
+          </a>
+          <a href="../index.html#projects" class="inline-flex items-center gap-2 border border-ink text-ink px-5 py-3 text-xs uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors">
+            ← Back to projects
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="px-6 lg:px-10 border-t border-line bg-paper">
+    <div class="max-w-6xl mx-auto py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-mute">
+      <div>© 2026 Tammy Chan · San Jose, California</div>
+      <div class="mono text-[10px] uppercase tracking-widest">
+        v1.3 · <a href="https://github.com/tammychanps/Portfolio" class="text-ink underline-wipe">Source on GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
