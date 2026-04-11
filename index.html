@@ -3,44 +3,45 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tammy Chan — Senior Technical Program Manager · AI tooling for regulated environments</title>
-  <meta name="description" content="Bridging enterprise technology delivery with practical AI tooling — building auditable, offline-first systems for regulated environments. Technical Program Manager with portfolio of open-source AI tools." />
+  <title>Tammy Chan · Senior Technical Program Manager · Bay Area</title>
+  <meta name="description" content="Senior Technical Program Manager. Spent years shipping regulated technology at HSBC. Now building AI tools that take the busywork out of running programs." />
 
   <!-- OpenGraph for LinkedIn previews -->
-  <meta property="og:title" content="Tammy Chan — Senior Technical Program Manager" />
-  <meta property="og:description" content="Bridging enterprise technology delivery with practical AI tooling — auditable, offline-first systems for regulated environments." />
+  <meta property="og:title" content="Tammy Chan · Senior Technical Program Manager" />
+  <meta property="og:description" content="Senior Technical Program Manager. Spent years shipping regulated technology at HSBC. Now building AI tools that take the busywork out of running programs." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tammychanps.github.io/Portfolio/" />
 
-  <!-- Fonts: Newsreader (display serif) + Public Sans (USWDS body) -->
+  <!-- Fonts: Fraunces (display, has personality) + Public Sans (USWDS body) + JetBrains Mono (annotations) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Public+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Public+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind via CDN per project rules -->
+  <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            ink:    '#0F1B2D',  // primary navy
-            copper: '#B8794D',  // accent
-            paper:  '#FAFAF7',  // off-white background
-            body:   '#2A2A2D',  // body text
-            rule:   '#E5E1D8',  // subtle border
-            muted:  '#6B6B6E',  // secondary text
-            approve:'#4F6B45',  // approved green
-            warn:   '#A8763C',  // amber for medium
-            block:  '#8B3A3A',  // red for blocked
+            // "Operator's Notebook" — cream + ink + vermillion + sage
+            cream:      '#FDF8F0',
+            'cream-2':  '#F5EFE2',
+            ink:        '#1A1A1A',
+            ink2:       '#2C2C2C',
+            vermillion: '#D43A2F',
+            sage:       '#6E8463',
+            rule:       '#E6DECC',
+            muted:      '#6B6357',
           },
           fontFamily: {
-            display: ['"Newsreader"', 'Georgia', 'serif'],
+            display: ['"Fraunces"', 'Georgia', 'serif'],
             body:    ['"Public Sans"', 'system-ui', 'sans-serif'],
             mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
           },
           letterSpacing: {
-            tighter2: '-0.035em',
+            tighter2: '-0.025em',
+            tighter3: '-0.04em',
           },
         }
       }
@@ -51,52 +52,45 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Public Sans', system-ui, sans-serif;
-      color: #2A2A2D;
-      background: #FAFAF7;
+      color: #2C2C2C;
+      background: #FDF8F0;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
-    /* Editorial display heading defaults */
-    .display { font-family: 'Newsreader', Georgia, serif; font-optical-sizing: auto; letter-spacing: -0.025em; line-height: 1.05; }
-    .display-italic { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-optical-sizing: auto; }
+    .display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; font-variation-settings: "SOFT" 50, "WONK" 0; line-height: 1.05; letter-spacing: -0.02em; }
+    .display-italic { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-optical-sizing: auto; font-variation-settings: "SOFT" 80, "WONK" 1; }
 
-    /* Subtle paper grain — gives the off-white background a printed-document feel */
-    .grain {
-      position: relative;
-    }
+    /* Paper grain for the cream background */
+    .grain { position: relative; }
     .grain::before {
       content: "";
       position: absolute;
       inset: 0;
       pointer-events: none;
-      opacity: 0.04;
+      opacity: 0.05;
       mix-blend-mode: multiply;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    /* Tabular numerals for the report card */
+    /* Tabular numerals for stats and the CAB card */
     .tabular { font-variant-numeric: tabular-nums; }
 
-    /* Decorative rule lines (used between sections) */
-    .rule-thick { border-top: 2px solid #0F1B2D; }
-    .rule-thin  { border-top: 1px solid #E5E1D8; }
+    /* Decorative rules */
+    .rule-thick { border-top: 2px solid #1A1A1A; }
+    .rule-thin  { border-top: 1px solid #E6DECC; }
 
-    /* Subtle hover for project cards */
-    .card { transition: transform 240ms cubic-bezier(.2,.7,.3,1), box-shadow 240ms ease, border-color 240ms ease; }
-    .card:hover { transform: translateY(-2px); border-color: #0F1B2D; box-shadow: 0 18px 40px -22px rgba(15,27,45,0.25); }
+    /* Layered shadows for the CAB card */
+    .layered-shadow {
+      box-shadow:
+        0 1px 0 rgba(26,26,26,0.08),
+        0 4px 12px -4px rgba(26,26,26,0.10),
+        0 22px 44px -22px rgba(26,26,26,0.18);
+    }
 
     /* Section anchor offset for sticky nav */
     section { scroll-margin-top: 80px; }
 
-    /* Anti-generic: layered shadow for the report card */
-    .layered-shadow {
-      box-shadow:
-        0 1px 0 rgba(15,27,45,0.08),
-        0 4px 12px -4px rgba(15,27,45,0.10),
-        0 24px 48px -24px rgba(15,27,45,0.20);
-    }
-
-    /* Underline animation for nav and inline links */
+    /* Underline-wipe for nav and inline links */
     .underline-wipe {
       background-image: linear-gradient(currentColor, currentColor);
       background-size: 0% 1px;
@@ -106,7 +100,11 @@
     }
     .underline-wipe:hover { background-size: 100% 1px; }
 
-    /* Fade + slight rise on scroll-into-view */
+    /* Card hover */
+    .card { transition: transform 240ms cubic-bezier(.2,.7,.3,1), box-shadow 240ms ease, border-color 240ms ease; }
+    .card:hover { transform: translateY(-2px); border-color: #1A1A1A; box-shadow: 0 18px 40px -22px rgba(26,26,26,0.22); }
+
+    /* Rise animation */
     @keyframes rise {
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -117,34 +115,58 @@
     .rise-3 { animation-delay: .25s; }
     .rise-4 { animation-delay: .35s; }
     .rise-5 { animation-delay: .45s; }
+    .rise-6 { animation-delay: .55s; }
 
-    /* Vertical text label for the side mark */
+    /* Vertical text for side marks */
     .vmark {
       writing-mode: vertical-rl;
       transform: rotate(180deg);
       letter-spacing: 0.35em;
       font-size: 0.7rem;
       text-transform: uppercase;
-      color: #6B6B6E;
+      color: #6B6357;
+    }
+
+    /* Stat strip styling */
+    .stat-num { font-family: 'Fraunces', Georgia, serif; font-variation-settings: "SOFT" 30, "WONK" 0; line-height: 0.9; letter-spacing: -0.04em; }
+
+    /* Vermillion accent dots and rules */
+    .ver-dot { display: inline-block; width: .4rem; height: .4rem; background: #D43A2F; border-radius: 50%; vertical-align: middle; }
+
+    /* Build list "L" labels */
+    .lifecycle-label {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #6E8463;
+    }
+
+    /* Section number badge */
+    .sec-num {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: #D43A2F;
     }
   </style>
 </head>
 
-<body class="font-body text-body bg-paper">
+<body class="font-body text-ink2 bg-cream">
 
   <!-- ─────────────────────────  HEADER / NAV  ───────────────────────── -->
-  <header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-sm border-b border-rule">
+  <header class="sticky top-0 z-50 bg-cream/85 backdrop-blur-sm border-b border-rule">
     <div class="max-w-6xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
       <a href="#home" class="display text-ink text-2xl tracking-tighter2">
         Tammy Chan
-        <span class="text-copper">·</span>
-        <span class="font-body text-xs uppercase tracking-widest text-muted ml-1">Portfolio</span>
+        <span class="text-vermillion">·</span>
+        <span class="font-mono text-[10px] uppercase tracking-widest text-muted ml-1">Portfolio</span>
       </a>
       <nav class="flex items-center gap-3 sm:gap-6 md:gap-8 text-xs sm:text-sm">
         <a href="#about"   class="underline-wipe text-ink/80 hover:text-ink">About</a>
         <a href="#work"    class="underline-wipe text-ink/80 hover:text-ink">Work</a>
         <a href="#contact" class="hidden sm:inline-block underline-wipe text-ink/80 hover:text-ink">Contact</a>
-        <a href="assets/resume.pdf" class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 border border-ink text-ink hover:bg-ink hover:text-paper transition-colors text-[10px] sm:text-xs uppercase tracking-widest">
+        <a href="assets/resume.pdf" class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 border border-ink text-ink hover:bg-ink hover:text-cream transition-colors text-[10px] sm:text-xs uppercase tracking-widest">
           Resume
           <span aria-hidden>↓</span>
         </a>
@@ -154,170 +176,175 @@
 
   <!-- ─────────────────────────  HERO  ───────────────────────── -->
   <section id="home" class="grain relative">
-    <div class="max-w-6xl mx-auto px-6 lg:px-10 pt-20 pb-24 lg:pt-28 lg:pb-32 relative">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10 pt-20 pb-20 lg:pt-28 lg:pb-24 relative">
 
-      <!-- Top metadata strip — like a report header -->
-      <div class="flex items-center gap-4 text-xs uppercase tracking-widest text-muted mb-10 rise rise-1">
-        <span>Vol. 01</span>
-        <span class="w-8 rule-thin"></span>
+      <!-- Top metadata strip -->
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs uppercase tracking-widest text-muted mb-10 rise rise-1">
+        <span class="font-mono">Vol. 01</span>
+        <span class="hidden sm:inline w-8 rule-thin"></span>
         <span>San Jose, California</span>
-        <span class="w-8 rule-thin"></span>
-        <span>Senior Technical Program Manager</span>
+        <span class="hidden sm:inline w-8 rule-thin"></span>
+        <span class="text-vermillion">Senior Technical Program Manager</span>
       </div>
 
-      <div class="grid lg:grid-cols-12 gap-12 items-start">
+      <h1 class="display text-ink text-[2.4rem] sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter3 leading-[1.05] lg:leading-[1.02] rise rise-2 [text-wrap:balance] max-w-4xl">
+        Technical Program Manager.
+        <br/>
+        <span class="display-italic text-vermillion">Now building the AI tools</span>
+        I wish my old change advisory boards had.
+      </h1>
 
-        <!-- Left: PVP statement -->
-        <div class="lg:col-span-8">
-          <h1 class="display text-ink text-[2.4rem] sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter2 leading-[1.05] lg:leading-[1.02] rise rise-2 [text-wrap:balance]">
-            Bridging enterprise technology delivery
-            <span class="display-italic text-copper">with practical AI tooling.</span>
-          </h1>
-
-          <p class="mt-8 text-lg lg:text-xl text-body/85 leading-relaxed max-w-2xl rise rise-3">
-            Building auditable, offline-first systems for regulated environments —
-            change risk scoring, incident pattern analysis, and program reporting that
-            stay on the machine where the data lives.
-          </p>
-
-          <div class="mt-10 flex flex-wrap items-center gap-4 rise rise-4">
-            <a href="#work" class="inline-flex items-center gap-3 bg-ink text-paper px-6 py-3.5 hover:bg-copper transition-colors text-sm uppercase tracking-widest">
-              View My Work
-              <span aria-hidden>→</span>
-            </a>
-            <a href="https://www.linkedin.com/in/tammychanps/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3.5 border border-ink text-ink hover:bg-ink hover:text-paper transition-colors text-sm uppercase tracking-widest">
-              LinkedIn
-            </a>
-            <a href="https://github.com/tammychanps" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3.5 text-ink underline-wipe text-sm uppercase tracking-widest">
-              GitHub
-            </a>
-          </div>
-        </div>
-
-        <!-- Right: CAB-style report card (THE differentiator) -->
-        <aside class="lg:col-span-4 rise rise-5">
-          <div class="bg-paper border-2 border-ink p-6 lg:p-7 layered-shadow font-mono text-[11px] leading-relaxed text-ink tabular">
-            <div class="flex items-center justify-between border-b border-ink pb-2 mb-3">
-              <span class="font-bold tracking-widest text-[10px]">CAB REVIEW DOCUMENT</span>
-              <span class="text-muted text-[10px]">v1.0</span>
-            </div>
-
-            <div class="text-[10px] tracking-widest text-muted mb-3">CHANGE REQUEST · CR-2026-001</div>
-
-            <table class="w-full">
-              <tbody>
-                <tr>
-                  <td class="py-1 pr-3 text-muted">TITLE</td>
-                  <td class="py-1 text-ink">Hire Tammy Chan</td>
-                </tr>
-                <tr>
-                  <td class="py-1 pr-3 text-muted">TYPE</td>
-                  <td class="py-1 text-ink">Sr. TPM · Risk · Delivery</td>
-                </tr>
-                <tr>
-                  <td class="py-1 pr-3 text-muted">SCOPE</td>
-                  <td class="py-1 text-ink">Bay Area FS · Remote OK</td>
-                </tr>
-                <tr>
-                  <td class="py-1 pr-3 text-muted">INHERENT</td>
-                  <td class="py-1 text-ink">1.2 / 5.0 &nbsp;LOW ✓</td>
-                </tr>
-                <tr>
-                  <td class="py-1 pr-3 text-muted">RESIDUAL</td>
-                  <td class="py-1 text-ink">1.0 / 5.0 &nbsp;LOW ✓</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="border-t border-ink mt-3 pt-3">
-              <div class="text-[10px] tracking-widest text-muted mb-1">DECISION</div>
-              <div class="flex items-center gap-2 text-ink">
-                <span class="inline-block w-2 h-2 rounded-full bg-approve"></span>
-                <span class="font-bold">GO</span>
-                <span class="text-muted">— proceed to interview</span>
-              </div>
-            </div>
-
-            <div class="mt-3 pt-3 border-t border-rule text-[9px] text-muted leading-snug">
-              <em>Methodology: ISO 31000 inherent vs. residual risk model.
-              Generated by the Change Risk Scoring Engine — built by the candidate.</em>
-            </div>
-          </div>
-        </aside>
-
+      <div class="mt-10 max-w-3xl text-lg lg:text-xl text-ink2/85 leading-relaxed rise rise-3 space-y-4">
+        <p>Spent years shipping regulated technology at HSBC. Now building AI tools that take the busywork out of running programs.</p>
+        <p class="text-muted italic">Side project for now. Hopefully someone's day job soon.</p>
       </div>
 
-      <!-- Proof points strip -->
-      <div class="mt-20 lg:mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 pt-10 border-t border-rule rise rise-5">
+      <div class="mt-10 flex flex-wrap items-center gap-4 rise rise-4">
+        <a href="#work" class="inline-flex items-center gap-3 bg-ink text-cream px-6 py-3.5 hover:bg-vermillion transition-colors text-sm uppercase tracking-widest">
+          View My Work
+          <span aria-hidden>→</span>
+        </a>
+        <a href="https://www.linkedin.com/in/tammychanps/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3.5 border border-ink text-ink hover:bg-ink hover:text-cream transition-colors text-sm uppercase tracking-widest">
+          LinkedIn
+        </a>
+        <a href="https://github.com/tammychanps" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3.5 text-ink underline-wipe text-sm uppercase tracking-widest">
+          GitHub
+        </a>
+      </div>
+
+      <!-- Stat strip — clean, confident, recruiter-friendly -->
+      <div class="mt-20 lg:mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 pt-10 border-t-2 border-ink rise rise-5">
         <div>
-          <div class="display text-ink text-4xl tracking-tighter2 tabular">$10B<span class="text-copper">+</span></div>
-          <div class="mt-2 text-sm text-muted leading-snug">institutional assets across programs delivered at HSBC's Hong Kong, London, and San Jose hubs</div>
+          <div class="stat-num text-ink text-6xl md:text-7xl">$10B<span class="text-vermillion">+</span></div>
+          <div class="mt-3 text-xs uppercase tracking-widest text-muted">Institutional assets</div>
+          <div class="mt-1 text-sm text-ink2/75 leading-snug">across programs delivered at HSBC's Hong Kong and London hubs</div>
         </div>
         <div>
-          <div class="display text-ink text-4xl tracking-tighter2 tabular">2M<span class="text-copper">+</span></div>
-          <div class="mt-2 text-sm text-muted leading-snug">customers on the Open Banking API platform delivered with zero incidents on an accelerated timeline</div>
+          <div class="stat-num text-ink text-6xl md:text-7xl">2M<span class="text-vermillion">+</span></div>
+          <div class="mt-3 text-xs uppercase tracking-widest text-muted">Customers</div>
+          <div class="mt-1 text-sm text-ink2/75 leading-snug">on the Open Banking API platform delivered with zero incidents on an accelerated timeline</div>
         </div>
         <div>
-          <div class="display text-ink text-4xl tracking-tighter2 tabular">3 <span class="font-body text-base text-muted normal-case">tools ·</span> 173 <span class="font-body text-base text-muted normal-case">tests</span></div>
-          <div class="mt-2 text-sm text-muted leading-snug">open-source AI tools shipped during sabbatical — change risk, incident analysis, program reporting</div>
+          <div class="stat-num text-ink text-6xl md:text-7xl">173<span class="text-vermillion">+</span></div>
+          <div class="mt-3 text-xs uppercase tracking-widest text-muted">Pytest tests</div>
+          <div class="mt-1 text-sm text-ink2/75 leading-snug">across three open-source AI tools shipped from scratch this year</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ─────────────────────────  ABOUT  ───────────────────────── -->
-  <section id="about" class="bg-ink text-paper relative">
+  <section id="about" class="bg-ink text-cream relative">
     <div class="max-w-6xl mx-auto px-6 lg:px-10 py-24 lg:py-32">
       <div class="grid lg:grid-cols-12 gap-12">
 
         <!-- Side label + photo -->
         <div class="lg:col-span-4">
-          <div class="vmark text-paper/60 mb-6">§ 01 · About</div>
-          <div class="aspect-[4/5] bg-paper/5 border border-paper/15 flex items-center justify-center text-paper/40 text-sm">
-            <!-- Headshot placeholder. Swap with assets/headshot.jpg when ready. -->
+          <div class="vmark text-cream/60 mb-6">§ 01 · About</div>
+          <div class="aspect-[4/5] bg-cream/5 border border-cream/15 flex items-center justify-center text-cream/40 text-sm">
             <span>[ headshot ]</span>
           </div>
-          <div class="mt-6 text-xs uppercase tracking-widest text-paper/50">
+          <div class="mt-6 text-xs uppercase tracking-widest text-cream/50">
             Tammy Chan<br/>
             San Jose, CA
           </div>
         </div>
 
         <div class="lg:col-span-8">
-          <h2 class="display text-paper text-3xl sm:text-4xl md:text-5xl tracking-tighter2 leading-[1.05] [text-wrap:balance]">
+          <h2 class="display text-cream text-3xl sm:text-4xl md:text-5xl tracking-tighter3 leading-[1.05] [text-wrap:balance]">
             A delivery practitioner
-            <span class="display-italic text-copper">turned AI builder.</span>
+            <span class="display-italic text-vermillion">turned AI builder.</span>
           </h2>
 
-          <div class="mt-10 space-y-6 text-paper/85 text-lg leading-relaxed max-w-2xl">
-            <p>
-              I spent more than a decade at HSBC building and delivering technology that runs regulated banking — from a J2EE onboarding platform serving a million members in Hong Kong, to a global program managing $10B+ in institutional assets, to an Open Banking API platform connecting 2M+ customers in Europe. The thread across all of it: shipping change in environments where regulators, auditors, and customer trust are non-negotiable.
-            </p>
-            <p>
-              My approach is data-first and audience-aware. I pull SQL on backend logs to find ghost features, run silent meetings to rebuild trust on burned-out teams, and translate engineering tradeoffs into language a risk committee can act on. The most interesting problems sit at the intersection of delivery speed and operational resilience — where the wrong tradeoff costs either velocity or a regulatory finding.
-            </p>
-            <p>
-              My family relocated from Hong Kong via London to San Jose in mid-2024 to reunite with my parents and brother. After a deliberate pause to help everyone settle in, I used the time to ship three open-source AI tools for the problems I saw most often at HSBC: change risk scoring, incident pattern analysis, and program status reporting. They're built on local LLMs so no data leaves the machine — designed for environments where regulators care. I'm now returning to senior IC and line-manager roles in financial services in the Bay Area.
-            </p>
+          <!-- Bullet form: Career snapshot -->
+          <div class="mt-12">
+            <div class="sec-num mb-3">CAREER SNAPSHOT</div>
+            <ul class="space-y-3 text-cream/85 text-base lg:text-lg leading-relaxed">
+              <li class="flex gap-3"><span class="text-vermillion mt-2 ver-dot"></span><span>Built regulated technology at HSBC. Hong Kong, then London. Based in San Jose now.</span></li>
+              <li class="flex gap-3"><span class="text-vermillion mt-2 ver-dot"></span><span>Programs spanning $10B+ in institutional assets and 2M+ customers on Open Banking.</span></li>
+              <li class="flex gap-3"><span class="text-vermillion mt-2 ver-dot"></span><span>Started in J2EE engineering, ended up leading global delivery, risk, and operations.</span></li>
+            </ul>
           </div>
 
-          <!-- Skills grid -->
+          <!-- How I work — outcomes-first, 3 quantified wins -->
+          <div class="mt-12">
+            <div class="sec-num mb-3">HOW I WORK</div>
+            <ul class="space-y-4 text-cream/85 text-base lg:text-lg leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-vermillion mt-2 ver-dot shrink-0"></span>
+                <span>Took a release pipeline from 30 to 100+ deploys per month while cutting incidents by 30%. The bottleneck was in pre-release approvals, not in the code.</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-vermillion mt-2 ver-dot shrink-0"></span>
+                <span>Recovered a 2-week-late Open Banking program by switching to daily 24-hour goals. Hit the accelerated date with zero incidents.</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-vermillion mt-2 ver-dot shrink-0"></span>
+                <span>Found a ghost feature eating 10% of support volume by joining backend logs against incident tickets in SQL. Roadmap reprioritized, support tickets down 25% in 3 months.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- What's interesting to me right now -->
+          <div class="mt-12">
+            <div class="sec-num mb-3">WHAT'S INTERESTING TO ME RIGHT NOW</div>
+            <ul class="space-y-3 text-cream/85 text-base lg:text-lg leading-relaxed">
+              <li class="flex gap-3"><span class="text-vermillion mt-2 ver-dot shrink-0"></span><span>On-premise LLM processing for the change, incident, and risk problems where cloud AI isn't allowed.</span></li>
+              <li class="flex gap-3"><span class="text-vermillion mt-2 ver-dot shrink-0"></span><span>The space between delivery speed and operational resilience, where the wrong tradeoff costs either velocity or a regulatory finding.</span></li>
+            </ul>
+
+            <div class="mt-8 lifecycle-label">Potential candidates on my build list</div>
+            <ol class="mt-3 space-y-3 text-cream/85 text-base leading-relaxed counter-reset list-none">
+              <li class="flex gap-3">
+                <span class="font-mono text-vermillion shrink-0">01</span>
+                <span><span class="font-medium text-cream">Cross-team dependency mapper.</span> Reads Jira exports, draws the dependency graph, surfaces the critical-path bottlenecks that kill program timelines.</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="font-mono text-vermillion shrink-0">02</span>
+                <span><span class="font-medium text-cream">Roadmap reality check.</span> Compares stated commitments against velocity and dependency data, generates a confidence score for each milestone before the exec has to ask.</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="font-mono text-vermillion shrink-0">03</span>
+                <span><span class="font-medium text-cream">Pre-mortem question generator.</span> Input a project plan. Output the top ten questions a smart pessimist would ask before kickoff, so the risks get surfaced while there's still time to mitigate them.</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="font-mono text-vermillion shrink-0">04</span>
+                <span><span class="font-medium text-cream">Sprint goal drift detector.</span> Every Friday reads the sprint board, compares to the sprint goal, flags tickets that don't ladder up so scope creep gets caught mid-sprint instead of mid-quarter.</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="font-mono text-vermillion shrink-0">05</span>
+                <span><span class="font-medium text-cream">Postmortem quality scorer.</span> Reads an incident postmortem, scores it on completeness covering root cause, contributing factors, action items, and blameless tone, suggests what's missing.</span>
+              </li>
+            </ol>
+          </div>
+
+          <!-- Currently -->
+          <div class="mt-12">
+            <div class="sec-num mb-3">CURRENTLY</div>
+            <ul class="space-y-3 text-cream/85 text-base lg:text-lg leading-relaxed">
+              <li class="flex gap-3"><span class="text-vermillion mt-2 ver-dot shrink-0"></span><span>Currently exploring opportunities in the Bay Area.</span></li>
+              <li class="flex gap-3"><span class="text-vermillion mt-2 ver-dot shrink-0"></span><span>Open to onsite, hybrid, or fully remote senior TPM, delivery, and program management roles.</span></li>
+              <li class="flex gap-3"><span class="text-vermillion mt-2 ver-dot shrink-0"></span><span>Working toward ITIL 4 Foundation and PMP.</span></li>
+            </ul>
+          </div>
+
+          <!-- Skills -->
           <div class="mt-14 grid sm:grid-cols-2 gap-x-12 gap-y-8 text-sm">
             <div>
-              <div class="text-copper text-xs uppercase tracking-widest mb-3">Domains</div>
-              <p class="text-paper/75 leading-relaxed">Regulated change management · Operational risk (RCSA, NIST SP 800-30, ISO 31000) · Open Banking &amp; payments · Technology delivery at scale · Vendor governance</p>
+              <div class="text-vermillion text-xs uppercase tracking-widest mb-3">Domains</div>
+              <p class="text-cream/75 leading-relaxed">Regulated change management. Operational risk. Open Banking and payments. Technology delivery at scale. Vendor governance.</p>
             </div>
             <div>
-              <div class="text-copper text-xs uppercase tracking-widest mb-3">Methods</div>
-              <p class="text-paper/75 leading-relaxed">Program &amp; portfolio management · CAB facilitation · Incident response · RAG-based reporting · Data-driven roadmap prioritization · Cross-timezone stakeholder management</p>
+              <div class="text-vermillion text-xs uppercase tracking-widest mb-3">Methods</div>
+              <p class="text-cream/75 leading-relaxed">Program and portfolio management. CAB facilitation. Incident response. RAG-based reporting. Data-driven roadmap prioritization. Cross-timezone stakeholder management.</p>
             </div>
             <div>
-              <div class="text-copper text-xs uppercase tracking-widest mb-3">Technical</div>
-              <p class="text-paper/75 leading-relaxed">Python · SQL · LangChain · FAISS · Ollama (local LLMs) · Jira / Confluence · J2EE (background)</p>
+              <div class="text-vermillion text-xs uppercase tracking-widest mb-3">Technical</div>
+              <p class="text-cream/75 leading-relaxed">Python. SQL. LangChain. FAISS. Ollama (on-premise LLM). Jira and Confluence. J2EE background.</p>
             </div>
             <div>
-              <div class="text-copper text-xs uppercase tracking-widest mb-3">Languages &amp; Currently Learning</div>
-              <p class="text-paper/75 leading-relaxed">English · Mandarin · Cantonese · ITIL 4 Foundation (in progress) · PMP review</p>
+              <div class="text-vermillion text-xs uppercase tracking-widest mb-3">Languages</div>
+              <p class="text-cream/75 leading-relaxed">English. Mandarin. Cantonese.</p>
             </div>
           </div>
         </div>
@@ -332,14 +359,55 @@
 
       <div class="vmark mb-6">§ 02 · Selected work</div>
 
-      <h2 class="display text-ink text-3xl sm:text-4xl md:text-5xl tracking-tighter2 leading-[1.05] max-w-3xl [text-wrap:balance]">
+      <h2 class="display text-ink text-3xl sm:text-4xl md:text-5xl tracking-tighter3 leading-[1.05] max-w-3xl [text-wrap:balance]">
         Three production-grade tools,
-        <span class="display-italic text-copper">built for environments where data can't leave the machine.</span>
+        <span class="display-italic text-vermillion">built for environments where AI has to stay inside the bank.</span>
       </h2>
 
-      <!-- The "moment" hook -->
-      <div class="mt-12 max-w-3xl border-l-2 border-copper pl-6 italic text-body/80 text-lg leading-relaxed">
-        These are systems I built during my sabbatical to apply current AI techniques to problems I encountered repeatedly at HSBC. <em>In one CAB meeting, we rejected a payment gateway migration the night before go-live because the security review hadn't completed. The change was 90% safe but the 10% wasn't documented. We slipped two weeks. That was the moment I started thinking about how AI could narrate the risk story better than humans under pressure.</em> All three tools run fully offline on local LLMs.
+      <!-- The "moment" hook + CAB report card differentiator (moved here from hero) -->
+      <div class="mt-12 grid lg:grid-cols-12 gap-10 items-start">
+
+        <div class="lg:col-span-7 border-l-2 border-vermillion pl-6 italic text-ink2/85 text-lg leading-relaxed">
+          These are systems I built to apply current AI techniques to problems I encountered repeatedly at HSBC. <em>In one CAB meeting, we rejected a payment gateway migration the night before go-live because the security review hadn't completed. The change was 90% safe but the 10% wasn't documented. We slipped two weeks. That was the moment I started thinking about how AI could narrate the risk story better than humans under pressure.</em> All three tools run on on-premise LLMs, designed for regulated environments where data has to stay inside the VPC.
+        </div>
+
+        <!-- CAB-style report card — now lives here as Projects intro, not in the hero -->
+        <aside class="lg:col-span-5">
+          <div class="bg-cream border-2 border-ink p-6 lg:p-7 layered-shadow font-mono text-[11px] leading-relaxed text-ink tabular">
+            <div class="flex items-center justify-between border-b border-ink pb-2 mb-3">
+              <span class="font-bold tracking-widest text-[10px]">CAB REVIEW DOCUMENT</span>
+              <span class="text-muted text-[10px]">v1.1</span>
+            </div>
+
+            <div class="text-[10px] tracking-widest text-muted mb-3">CHANGE REQUEST · CR-2026-001</div>
+
+            <table class="w-full">
+              <tbody>
+                <tr><td class="py-1 pr-3 text-muted">TITLE</td><td class="py-1 text-ink">Hire Tammy Chan</td></tr>
+                <tr><td class="py-1 pr-3 text-muted">TYPE</td><td class="py-1 text-ink">Sr. TPM · Delivery</td></tr>
+                <tr><td class="py-1 pr-3 text-muted">SCOPE</td><td class="py-1 text-ink">Bay Area FS · Remote OK</td></tr>
+                <tr><td class="py-1 pr-3 text-muted">INHERENT</td><td class="py-1 text-ink">1.2 / 5.0 &nbsp;LOW ✓</td></tr>
+                <tr><td class="py-1 pr-3 text-muted">RESIDUAL</td><td class="py-1 text-ink">1.0 / 5.0 &nbsp;LOW ✓</td></tr>
+              </tbody>
+            </table>
+
+            <div class="border-t border-ink mt-3 pt-3">
+              <div class="text-[10px] tracking-widest text-muted mb-1">DECISION</div>
+              <div class="flex items-center gap-2 text-ink">
+                <span class="inline-block w-2 h-2 rounded-full bg-sage"></span>
+                <span class="font-bold">GO</span>
+                <span class="text-muted">· proceed to interview</span>
+              </div>
+            </div>
+
+            <div class="mt-3 pt-3 border-t border-rule text-[9px] text-muted leading-snug">
+              <em>Methodology: ISO 31000 inherent vs residual risk. Generated by the Change Risk Scoring Engine, built by the candidate.</em>
+            </div>
+          </div>
+          <div class="mt-3 text-xs text-muted italic px-1">
+            The card above runs on the same engine as Project 01.
+          </div>
+        </aside>
       </div>
 
       <!-- Projects -->
@@ -359,18 +427,18 @@
             </div>
           </div>
 
-          <div class="lg:col-span-9 space-y-5 text-body/85 leading-relaxed">
+          <div class="lg:col-span-9 space-y-5 text-ink2/85 leading-relaxed">
             <div>
-              <div class="text-copper text-xs uppercase tracking-widest mb-1">Problem</div>
-              <p>Every production change at a bank goes through a CAB. Analysts manually review each request, cross-reference past incidents, and write risk assessments — 30-60 minutes per change with significant variance between reviewers. Conservative reviewers block changes; liberal ones miss critical risks.</p>
+              <div class="text-vermillion text-xs uppercase tracking-widest mb-1">Problem</div>
+              <p>Every production change at a bank goes through a CAB. Analysts manually review each request, cross-reference past incidents, and write risk assessments. 30 to 60 minutes per change, with significant variance between reviewers. Conservative reviewers block changes, liberal ones miss critical risks.</p>
             </div>
             <div>
-              <div class="text-copper text-xs uppercase tracking-widest mb-1">Solution</div>
-              <p>A Python tool that scores each change on 8 weighted risk dimensions, retrieves similar past changes via FAISS vector search (RAG), and generates a CAB-ready risk narrative using a local LLM. Deterministic scoring stays auditable; the AI layer produces the explanation. Models <strong class="text-ink">inherent vs. residual risk</strong> (ISO 31000) so addressed mitigations are tracked across revisions and the Go/No-Go evolves.</p>
+              <div class="text-vermillion text-xs uppercase tracking-widest mb-1">Solution</div>
+              <p>An auditable change risk scoring tool that scores each change on 8 weighted risk dimensions, retrieves similar past changes via vector search, and generates a CAB-ready risk narrative on an on-premise LLM. Deterministic scoring stays auditable, the AI layer produces the explanation. Models inherent vs. residual risk so addressed mitigations are tracked across revisions and the Go/No-Go evolves with the program.</p>
             </div>
             <div>
-              <div class="text-copper text-xs uppercase tracking-widest mb-1">Impact</div>
-              <p>Replaces 30-60 minutes of manual review with a CAB-ready report in under a minute. The inherent vs. residual model gives reviewers a clear "before/after" as mitigations are addressed. All processing local — designed for PCI DSS, SOX, FFIEC environments.</p>
+              <div class="text-vermillion text-xs uppercase tracking-widest mb-1">Impact</div>
+              <p>Replaces 30 to 60 minutes of manual review with a CAB-ready report in under a minute. The inherent vs. residual model gives reviewers a clear before/after as mitigations land. All processing local, designed for PCI DSS, SOX, and FFIEC environments.</p>
             </div>
             <a href="https://github.com/tammychanps/change-risk-scoring-engine" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mt-2 text-ink underline-wipe text-sm">
               View on GitHub
@@ -392,18 +460,18 @@
             </div>
           </div>
 
-          <div class="lg:col-span-9 space-y-5 text-body/85 leading-relaxed">
+          <div class="lg:col-span-9 space-y-5 text-ink2/85 leading-relaxed">
             <div>
-              <div class="text-copper text-xs uppercase tracking-widest mb-1">Problem</div>
-              <p>Incident postmortems generate rich data, but most teams treat each incident as a one-off. Recurring root causes — the same timeout misconfigured across services, the same on-call gap, the same config drift — get re-discovered every quarter instead of surfaced as patterns.</p>
+              <div class="text-vermillion text-xs uppercase tracking-widest mb-1">Problem</div>
+              <p>Incident postmortems generate rich data, but most teams treat each incident as a one-off. Recurring root causes (the same timeout misconfigured across services, the same on-call gap, the same config drift) get re-discovered every quarter instead of surfaced as patterns.</p>
             </div>
             <div>
-              <div class="text-copper text-xs uppercase tracking-widest mb-1">Solution</div>
-              <p>A Python tool that ingests incident records, embeds them via FAISS, clusters by similarity, and produces a runbook-aware narrative explaining recurring patterns and which existing runbooks address each cluster. Built for SRE and ops leaders who need to turn 60+ incidents per quarter into actionable themes.</p>
+              <div class="text-vermillion text-xs uppercase tracking-widest mb-1">Solution</div>
+              <p>An operational resilience tool that ingests incident records, embeds them via vector search, clusters by similarity, and produces a runbook-aware narrative explaining recurring patterns and which existing runbooks address each cluster. Built for SRE and ops leaders who need to turn 60+ incidents per quarter into actionable themes.</p>
             </div>
             <div>
-              <div class="text-copper text-xs uppercase tracking-widest mb-1">Impact</div>
-              <p>Surfaces recurring pain points that are invisible to one-incident-at-a-time review. Runbook awareness means recommendations point to existing tooling, not just "you should write a runbook for this." Local LLM, no data leaves the machine.</p>
+              <div class="text-vermillion text-xs uppercase tracking-widest mb-1">Impact</div>
+              <p>Surfaces recurring pain points that are invisible to one-incident-at-a-time review. Runbook awareness means recommendations point to existing tooling, not just "you should write a runbook." On-premise LLM, no data leaves the machine.</p>
             </div>
             <a href="https://github.com/tammychanps/incident-pattern-analyzer" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mt-2 text-ink underline-wipe text-sm">
               View on GitHub
@@ -425,18 +493,18 @@
             </div>
           </div>
 
-          <div class="lg:col-span-9 space-y-5 text-body/85 leading-relaxed">
+          <div class="lg:col-span-9 space-y-5 text-ink2/85 leading-relaxed">
             <div>
-              <div class="text-copper text-xs uppercase tracking-widest mb-1">Problem</div>
-              <p>Senior leaders ask for weekly program status reports synthesizing Jira items, project charters, and recent activity into a one-page summary. PMs spend 2-4 hours per week on this — copy-pasting filters, formatting, summarizing — and the output is uneven across PMs.</p>
+              <div class="text-vermillion text-xs uppercase tracking-widest mb-1">Problem</div>
+              <p>Senior leaders ask for weekly program status reports synthesizing Jira items, project charters, and recent activity into a one-page summary. PMs spend 2 to 4 hours per week on this, and the output is uneven across PMs.</p>
             </div>
             <div>
-              <div class="text-copper text-xs uppercase tracking-widest mb-1">Solution</div>
-              <p>A Python tool that ingests a Jira export and a project charter, generates a structured weekly report with status, risks, top tasks, and a narrative summary using a local LLM. Templated where it can be, AI-narrated where prose is needed.</p>
+              <div class="text-vermillion text-xs uppercase tracking-widest mb-1">Solution</div>
+              <p>A stakeholder-aware reporting tool that ingests a Jira export and a project charter, generates a structured weekly report with status, risks, top tasks, and a narrative summary on an on-premise LLM. Templated where it can be, AI-narrated where prose is needed. Audit trail preserved end-to-end.</p>
             </div>
             <div>
-              <div class="text-copper text-xs uppercase tracking-widest mb-1">Impact</div>
-              <p>2-4 hours of weekly status writing collapsed into a generated draft that the PM edits in 15 minutes. Local LLM means it works in environments where cloud AI is forbidden.</p>
+              <div class="text-vermillion text-xs uppercase tracking-widest mb-1">Impact</div>
+              <p>2 to 4 hours of weekly status writing collapsed into a generated draft that the PM edits in 15 minutes. Local LLM means it works in environments where cloud AI is forbidden.</p>
             </div>
             <a href="https://github.com/tammychanps/program-status-report-generator" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mt-2 text-ink underline-wipe text-sm">
               View on GitHub
@@ -450,33 +518,33 @@
   </section>
 
   <!-- ─────────────────────────  CONTACT  ───────────────────────── -->
-  <section id="contact" class="bg-ink text-paper relative">
+  <section id="contact" class="bg-ink text-cream relative">
     <div class="max-w-6xl mx-auto px-6 lg:px-10 py-24 lg:py-32">
-      <div class="vmark text-paper/60 mb-6">§ 03 · Contact</div>
+      <div class="vmark text-cream/60 mb-6">§ 03 · Contact</div>
 
       <div class="grid lg:grid-cols-12 gap-12 items-end">
         <div class="lg:col-span-8">
-          <h2 class="display text-paper text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tighter2 leading-[1.05] lg:leading-[1.02] [text-wrap:balance]">
+          <h2 class="display text-cream text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tighter3 leading-[1.05] lg:leading-[1.02] [text-wrap:balance]">
             Looking for a senior TPM
-            <span class="display-italic text-copper">who already speaks regulator?</span>
+            <span class="display-italic text-vermillion">who already speaks regulator?</span>
           </h2>
-          <p class="mt-8 text-paper/80 text-lg leading-relaxed max-w-2xl">
-            I'm based in San Jose, California, and open to Bay Area or remote roles in financial services — banks, credit unions, insurance, fintech, and consulting. The fastest way to reach me is LinkedIn.
+          <p class="mt-8 text-cream/80 text-lg leading-relaxed max-w-2xl">
+            I'm based in San Jose, California, and exploring opportunities in the Bay Area. Open to onsite, hybrid, or fully remote roles in financial services. Banks, credit unions, insurance, fintech, and consulting all welcome. The fastest way to reach me is LinkedIn.
           </p>
         </div>
 
         <div class="lg:col-span-4">
           <div class="space-y-3">
-            <a href="https://www.linkedin.com/in/tammychanps/" target="_blank" rel="noopener" class="block bg-paper text-ink px-6 py-4 hover:bg-copper hover:text-paper transition-colors">
+            <a href="https://www.linkedin.com/in/tammychanps/" target="_blank" rel="noopener" class="block bg-cream text-ink px-6 py-4 hover:bg-vermillion hover:text-cream transition-colors">
               <div class="text-[10px] uppercase tracking-widest text-muted mb-1">Primary</div>
               <div class="font-bold tracking-tight">LinkedIn → /in/tammychanps</div>
             </a>
-            <a href="mailto:hello@example.com" class="block border border-paper/30 px-6 py-4 hover:border-copper hover:text-copper transition-colors">
-              <div class="text-[10px] uppercase tracking-widest text-paper/60 mb-1">Email</div>
+            <a href="mailto:hello@example.com" class="block border border-cream/30 px-6 py-4 hover:border-vermillion hover:text-vermillion transition-colors">
+              <div class="text-[10px] uppercase tracking-widest text-cream/60 mb-1">Email</div>
               <div class="font-bold tracking-tight">hello@example.com</div>
             </a>
-            <a href="https://github.com/tammychanps" target="_blank" rel="noopener" class="block border border-paper/30 px-6 py-4 hover:border-copper hover:text-copper transition-colors">
-              <div class="text-[10px] uppercase tracking-widest text-paper/60 mb-1">Code</div>
+            <a href="https://github.com/tammychanps" target="_blank" rel="noopener" class="block border border-cream/30 px-6 py-4 hover:border-vermillion hover:text-vermillion transition-colors">
+              <div class="text-[10px] uppercase tracking-widest text-cream/60 mb-1">Code</div>
               <div class="font-bold tracking-tight">github.com/tammychanps</div>
             </a>
           </div>
@@ -486,13 +554,13 @@
   </section>
 
   <!-- ─────────────────────────  FOOTER  ───────────────────────── -->
-  <footer class="bg-paper border-t border-rule">
+  <footer class="bg-cream border-t border-rule">
     <div class="max-w-6xl mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-muted">
       <div>
         © 2026 Tammy Chan · San Jose, California
       </div>
       <div class="font-mono text-[10px] tracking-widest uppercase">
-        Designed in plain HTML — like the work · Source on
+        Designed in plain HTML, like the work · Source on
         <a href="https://github.com/tammychanps/Portfolio" class="text-ink underline-wipe">GitHub</a>
       </div>
     </div>
