@@ -47,7 +47,7 @@
         <a href="../index.html#building" class="nav-link">Building</a>
         <a href="../index.html#contact" class="nav-link">Contact</a>
       </nav>
-      <a href="../assets/resume.pdf" class="inline-flex items-center gap-2 bg-blue text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wide hover:bg-blueDk transition-colors">Résumé ↓</a>
+      <a href="../assets/Tammy Chan Resume.pdf" class="inline-flex items-center gap-2 bg-blue text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wide hover:bg-blueDk transition-colors">Résumé ↓</a>
     </div>
   </header>
 
@@ -80,10 +80,10 @@
           The Problem
         </h3>
         <ul>
-          <li>Change Advisory Boards review production changes, but the process varies widely. Standard changes with pre-approval checklists skip CAB, while high-risk changes trigger a full review. The gap is in the middle: non-standard changes where the risk level isn't obvious until someone reads the details.</li>
-          <li>Change owners fill out questionnaires, but responses are free-text and subjective. Two owners can describe the same type of change in very different ways, leading reviewers to score them inconsistently.</li>
+          <li>Every CAB struggles with the same question: <strong>"How risky is this change?"</strong> Standard changes get pre-approved, but non-standard changes sit in a grey zone where the risk level isn't obvious until someone reads the details.</li>
+          <li>Most tools slap a generic Low/Medium/High label on everything, from a risky database migration to a minor feature flag change, without any reasoning or a path to track how the risk drops as the team applies mitigations.</li>
           <li>Past incident data exists in a separate system. Reviewers rarely cross-reference it, even when a similar change caused an incident last quarter. The institutional memory is in people's heads, not in the scoring process.</li>
-          <li>The result: 30-60 minutes per review, inconsistent risk levels across reviewers, and no systematic way to track how risk evolves as mitigations are addressed between revisions.</li>
+          <li>The result: inconsistent risk levels across reviewers, no structured way to explain the score, and no revision trail showing how mitigations changed the picture.</li>
         </ul>
       </div>
 
@@ -96,11 +96,12 @@
           The Approach
         </h3>
         <ul>
-          <li><strong>Deterministic scoring</strong> on 8 weighted risk dimensions (scope, complexity, blast radius, security exposure, etc.) with configurable thresholds. Rule-based, auditable, no black box.</li>
-          <li><strong>RAG retrieval</strong> via FAISS vector search over a history of past change requests. Surfaces similar changes and their outcomes, so the reviewer doesn't have to search manually.</li>
-          <li><strong>Inherent vs. residual risk</strong> following ISO 31000. Inherent score stays frozen for audit. Each mitigation is tagged with a target dimension and a calibrated reduction. Residual score drives the GO / NO-GO recommendation.</li>
-          <li><strong>Local LLM narrative</strong> via Ollama. The AI writes the CAB-ready risk explanation, grounded in the deterministic scores and retrieved context. If Ollama is unavailable, a template fallback produces a complete report.</li>
-          <li><strong>Revision tracking</strong>: same CR ID across revisions. Each rev persists the full audit record so future reviewers can reconstruct the decision trail.</li>
+          <li><strong>Context-aware analysis:</strong> reads the change request in plain English rather than forcing users into a rigid, fixed checklist</li>
+          <li><strong>Dynamic weighted scoring</strong> on 8 key factors including potential breakage, rollback plans, deployment timing, and security exposure. Rule-based, auditable, no black box.</li>
+          <li><strong>RAG retrieval</strong> via FAISS vector search over past change requests. Surfaces similar changes and their outcomes automatically.</li>
+          <li><strong>Audit-ready tracking:</strong> inherent risk (before mitigation) and residual risk (after mitigation) across revisions, using the same risk language compliance teams use every day (ISO 31000)</li>
+          <li><strong>Explainable AI:</strong> a local Ollama LLM generates a concise narrative explaining exactly why it assigned the score. Template fallback if Ollama is unavailable.</li>
+          <li><strong>Scalable architecture:</strong> currently running as a proof-of-concept on a local LLM, the design is built to scale into private enterprise clouds like AWS Bedrock or Azure OpenAI</li>
         </ul>
       </div>
 
@@ -113,7 +114,7 @@
           The Impact
         </h3>
         <ul>
-          <li><strong>30-second scoring</strong> replaces a 30-60 minute manual review</li>
+          <li><strong>Seconds, not hours:</strong> structured scoring replaces subjective manual review</li>
           <li><strong>Inherent 3.11 HIGH → Residual 1.72 LOW</strong> across two revisions, with the report explaining exactly what changed and why</li>
           <li><strong>100% on-premise</strong>: no data sent to external APIs, built for PCI DSS / SOX / FFIEC environments</li>
           <li><strong>131 pytest tests</strong>, Python 3.12, works without Ollama or FAISS installed</li>
