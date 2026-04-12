@@ -13,7 +13,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -21,21 +21,23 @@
       theme: {
         extend: {
           colors: {
-            // Soft Cobalt palette
-            paper:  '#FAFAF9',
-            ink:    '#0A0A0A',
-            ink2:   '#1F1F1F',
-            cobalt: '#3366CC',
-            cobalt2:'#1E4FBA',
-            mute:   '#767066',
-            line:   '#E8E5DD',
-            sage:   '#5C8A6B',
-            warmgray:'#F0EEE6',
+            cream:   '#FAF8F2',
+            cream2:  '#F4EFE2',
+            ink:     '#1A2238',
+            ink2:    '#334155',
+            mute:    '#64748B',
+            line:    '#E8E1D0',
+            blue:    '#2563EB',
+            blueDk:  '#1D4ED8',
+            blueLt:  '#EFF4FF',
+            sage:    '#9DBE9C',
+            peach:   '#F4B886',
+            butter:  '#F1DCA7',
+            lilac:   '#C8B6E2',
+            sky:     '#A8C5E0',
           },
           fontFamily: {
-            display: ['"Instrument Serif"', 'Georgia', 'serif'],
-            sans:    ['"Inter"', 'system-ui', 'sans-serif'],
-            mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+            sans: ['"Inter"', 'system-ui', 'sans-serif'],
           },
         }
       }
@@ -46,171 +48,161 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      color: #1F1F1F;
-      background: #FAFAF9;
+      color: #334155;
+      background: #FAF8F2;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       font-feature-settings: "ss01", "cv11";
     }
-    .display { font-family: 'Instrument Serif', Georgia, serif; line-height: 1.0; letter-spacing: -0.01em; }
-    .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
-    .tabular { font-variant-numeric: tabular-nums; }
-
     section { scroll-margin-top: 80px; }
 
-    /* Top nav with active hover */
-    .nav-link {
-      position: relative;
-      color: #1F1F1F;
-      transition: color 200ms ease;
+    .hero-name {
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: #1A2238;
+      line-height: 1.05;
     }
-    .nav-link::after {
-      content: "";
-      position: absolute;
-      left: 0; right: 0; bottom: -6px;
-      height: 2px;
-      background: #3366CC;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 280ms cubic-bezier(.2,.7,.3,1);
+    .role-tag {
+      font-weight: 600;
+      color: #2563EB;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
     }
-    .nav-link:hover { color: #3366CC; }
+    @media (min-width: 1024px) { .role-tag { font-size: 1.5rem; } }
+    @media (min-width: 1280px) { .role-tag { font-size: 1.625rem; } }
+
+    .kw { color: #2563EB; font-weight: 600; }
+
+    /* Top nav */
+    .nav-link { position: relative; color: #334155; font-weight: 500; transition: color 200ms ease; }
+    .nav-link::after { content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px; background:#2563EB; transform:scaleX(0); transform-origin:left; transition:transform 280ms cubic-bezier(.2,.7,.3,1); }
+    .nav-link:hover { color: #2563EB; }
     .nav-link:hover::after { transform: scaleX(1); }
 
-    /* Underline-wipe for inline links */
-    .underline-wipe {
-      background-image: linear-gradient(currentColor, currentColor);
-      background-size: 0% 1px;
-      background-repeat: no-repeat;
-      background-position: 0 100%;
-      transition: background-size 280ms cubic-bezier(.2,.7,.3,1);
-    }
-    .underline-wipe:hover { background-size: 100% 1px; }
+    .ul-wipe { background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1px; background-repeat: no-repeat; background-position: 0 100%; transition: background-size 280ms cubic-bezier(.2,.7,.3,1); }
+    .ul-wipe:hover { background-size: 100% 1px; }
 
-    /* Now block — small dashboard */
+    /* Photo */
+    .photo-wrap {
+      width: 330px; height: 330px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid #E8E1D0;
+      background: linear-gradient(135deg, #F4EFE2 0%, #FAF8F2 100%);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 24px 48px -28px rgba(26, 34, 56, 0.22);
+    }
+    @media (min-width: 1024px) { .photo-wrap { width: 390px; height: 390px; } }
+    .photo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-fallback { font-weight: 800; font-size: 5.5rem; color: #94A3B8; letter-spacing: -0.02em; }
+
+    /* Available chip */
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+      color: #1D4ED8; background: #EFF4FF;
+      padding: 0.45rem 0.85rem; border-radius: 999px; border: 1px solid #DBE7FF;
+    }
+    .chip-dot {
+      width: 7px; height: 7px; border-radius: 999px; background: #16A34A;
+      box-shadow: 0 0 0 0 rgba(22,163,74,0.5); animation: pulse 2.2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0.5); }
+      50%      { box-shadow: 0 0 0 6px rgba(22,163,74,0); }
+    }
+
+    /* Section label with icon */
+    .sec-label {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #2563EB;
+    }
+    .sec-icon {
+      width: 32px; height: 32px; border-radius: 10px; background: #EFF4FF; border: 1px solid #DBE7FF;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sec-icon svg { width: 16px; height: 16px; stroke: #2563EB; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Now block rows */
     .now-row {
-      display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: 1rem;
-      padding: 0.7rem 0;
-      border-top: 1px solid #E8E5DD;
-      align-items: baseline;
+      display: grid; grid-template-columns: 130px 1fr; gap: 1.25rem;
+      padding: 0.85rem 0; border-top: 1px solid #E8E1D0; align-items: baseline;
     }
-    .now-row:first-child { border-top: none; }
-    .now-label {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #3366CC;
-    }
+    .now-row:first-child { border-top: none; padding-top: 0; }
+    .now-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #2563EB; }
 
-    /* Project card hover */
-    .project-card { transition: transform 280ms cubic-bezier(.2,.7,.3,1), border-color 280ms ease, box-shadow 280ms ease; }
-    .project-card:hover { transform: translateY(-3px); border-color: #3366CC; box-shadow: 0 24px 48px -28px rgba(51,102,204,0.30); }
-
-    /* Build list lifecycle pill */
-    .lifecycle-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #3366CC;
-      background: rgba(51,102,204,0.08);
-      padding: 0.25rem 0.55rem;
-      border-radius: 999px;
-      white-space: nowrap;
+    /* Project card */
+    .project-card {
+      background: #FFFFFF; border: 1px solid #E8E1D0; border-radius: 16px; overflow: hidden;
+      transition: transform 320ms cubic-bezier(.2,.7,.3,1), box-shadow 320ms ease, border-color 320ms ease;
+      display: flex; flex-direction: column;
     }
+    .project-card:hover { transform: translateY(-4px); border-color: #C7D7F7; box-shadow: 0 28px 56px -32px rgba(37, 99, 235, 0.35); }
+    .project-card .img-wrap { aspect-ratio: 16 / 9; overflow: hidden; background: #F4EFE2; }
+    .project-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms ease; }
+    .project-card:hover .img-wrap img { transform: scale(1.03); }
+    .project-card .body { padding: 1.5rem 1.6rem 1.7rem; display: flex; flex-direction: column; flex: 1; }
+    .meta-row { display: flex; align-items: center; gap: 0.6rem; font-size: 0.72rem; color: #64748B; margin-bottom: 0.7rem; }
+    .meta-badge { display:inline-flex; align-items:center; font-size:0.66rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#1D4ED8; background:#EFF4FF; padding:0.25rem 0.55rem; border-radius:999px; }
+    .meta-dot { color: #CBD5E1; }
+    .card-title { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; color: #1A2238; line-height: 1.3; margin-bottom: 0.55rem; }
+    .card-excerpt { font-size: 0.92rem; color: #475569; line-height: 1.55; margin-bottom: 1.1rem; flex: 1; }
+    .card-link { font-size: 0.85rem; font-weight: 600; color: #2563EB; display: inline-flex; align-items: center; gap: 0.4rem; }
+
+    /* Build cards */
     .build-card {
-      transition: transform 280ms ease, border-color 280ms ease, background 280ms ease;
-    }
-    .build-card:hover {
-      transform: translateY(-2px);
-      border-color: #3366CC;
-      background: rgba(51,102,204,0.02);
-    }
-
-    /* Lifecycle visual chart */
-    .lifecycle-track {
+      background: #FFFFFF; border: 1px solid #E8E1D0; border-radius: 14px; padding: 1.4rem 1.5rem;
+      transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
       position: relative;
-      height: 4px;
-      background: #E8E5DD;
-      border-radius: 999px;
-      margin: 2rem 0 4rem;
     }
-    .lifecycle-track::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, #3366CC 0%, #3366CC 100%);
-      border-radius: 999px;
-      opacity: 0.3;
+    .build-card:hover { transform: translateY(-3px); border-color: #C7D7F7; box-shadow: 0 20px 40px -28px rgba(37, 99, 235, 0.3); }
+    .build-num {
+      position: absolute; top: -14px; left: 1.5rem;
+      width: 28px; height: 28px; border-radius: 999px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 800; color: #1A2238;
+      background: #FAF8F2; border: 2px solid currentColor;
     }
-    .lifecycle-marker {
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #FAFAF9;
-      border: 2px solid #3366CC;
-      cursor: pointer;
-      transition: transform 200ms ease, background 200ms ease;
+    .build-pill {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.3rem 0.65rem; border-radius: 999px; margin-bottom: 0.7rem;
     }
-    .lifecycle-marker:hover {
-      transform: translate(-50%, -50%) scale(1.3);
-      background: #3366CC;
-    }
-    .lifecycle-label-pos {
-      position: absolute;
-      top: calc(50% + 16px);
-      transform: translateX(-50%);
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #767066;
-      white-space: nowrap;
-    }
+    .pill-sage   { color: #4F7D4D; background: #E8F1E2; }
+    .pill-sky    { color: #2563EB; background: #E1ECF8; }
+    .pill-peach  { color: #B5621A; background: #FBE7D2; }
+    .pill-butter { color: #8B6914; background: #FAF0CC; }
+    .pill-lilac  { color: #6B4F96; background: #ECE2F6; }
 
-    /* Hero photo placeholder */
-    .photo-placeholder {
-      aspect-ratio: 4/5;
-      background: linear-gradient(135deg, #F0EEE6 0%, #FAFAF9 100%);
-      border: 1px solid #E8E5DD;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #767066;
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 4rem;
-      font-style: italic;
+    /* Contact cards (aradhya style) */
+    .contact-card {
+      display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.4rem;
+      border-radius: 14px; border: 1px solid #E8E1D0; background: #FFFFFF;
+      transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
     }
+    .contact-card:hover { transform: translateY(-2px); border-color: #C7D7F7; box-shadow: 0 16px 32px -24px rgba(37,99,235,0.25); }
+    .contact-icon {
+      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-icon svg { width: 20px; height: 20px; }
 
-    /* Subtle entrance animation */
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    /* Entrance */
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .rise { animation: rise 700ms cubic-bezier(.2,.7,.3,1) both; }
     .rise-1 { animation-delay: .05s; }
     .rise-2 { animation-delay: .15s; }
     .rise-3 { animation-delay: .25s; }
-    .rise-4 { animation-delay: .35s; }
   </style>
 </head>
 
-<body class="font-sans text-ink2 bg-paper">
+<body class="bg-cream text-ink2">
 
   <!-- ─────────────────────────  TOP NAV  ───────────────────────── -->
-  <header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-line">
+  <header class="sticky top-0 z-50 bg-cream/85 backdrop-blur-md border-b border-line">
     <div class="max-w-6xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-      <a href="/Portfolio/" class="display text-ink text-2xl">
-        Tammy Chan<span class="text-cobalt italic text-xl">.</span>
+      <a href="/Portfolio/" class="text-ink font-extrabold text-lg tracking-tight">
+        Tammy Chan<span class="text-blue">.</span>
       </a>
       <nav class="hidden md:flex items-center gap-8 text-sm">
         <a href="#home"     class="nav-link">Home</a>
@@ -219,52 +211,55 @@
         <a href="#building" class="nav-link">Building</a>
         <a href="#contact"  class="nav-link">Contact</a>
       </nav>
-      <a href="assets/resume.pdf" class="inline-flex items-center gap-2 bg-ink text-paper px-4 py-2 text-xs uppercase tracking-widest hover:bg-cobalt transition-colors">
-        Résumé
-        <span aria-hidden>↓</span>
+      <a href="assets/resume.pdf" class="inline-flex items-center gap-2 bg-blue text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wide hover:bg-blueDk transition-colors">
+        Résumé <span aria-hidden>↓</span>
       </a>
     </div>
   </header>
 
-  <!-- ─────────────────────────  HERO (icfclaudia / aradhyapuneeth pattern)  ───────────────────────── -->
+  <!-- ─────────────────────────  HERO  ───────────────────────── -->
   <section id="home" class="px-6 lg:px-10">
-    <div class="max-w-6xl mx-auto pt-16 lg:pt-24 pb-20 lg:pb-28">
-      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+    <div class="max-w-6xl mx-auto pt-16 lg:pt-24 pb-16 lg:pb-20">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
 
-        <!-- Left: intro -->
         <div class="lg:col-span-7 rise rise-1">
-          <div class="mono text-[11px] uppercase tracking-widest text-cobalt mb-4">
-            <span class="inline-block w-2 h-2 rounded-full bg-cobalt animate-pulse mr-2"></span>
-            Available for new programs · San Jose, California
+          <div class="chip mb-6">
+            <span class="chip-dot"></span>
+            Available · San Jose, California
           </div>
-          <h1 class="display text-ink text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] lg:leading-[1.0] mb-6 [text-wrap:balance]">
-            Hi, I'm Tammy.<br/>
-            <span class="text-cobalt italic">Senior Technical</span> Program Manager.
+          <h1 class="hero-name text-[2.6rem] sm:text-5xl lg:text-6xl mb-3">
+            Hi, I'm Tammy Chan.
           </h1>
-          <p class="text-lg lg:text-xl text-ink2/85 leading-relaxed max-w-xl mb-8">
-            I ship regulated technology programs in financial services. I'm also building the AI tools I want to use on my next program.
+          <div class="role-tag text-xl sm:text-2xl mb-6">
+            Senior Technical Program Manager
+          </div>
+          <p class="text-lg text-ink2 leading-relaxed max-w-2xl mb-8">
+            I ship <span class="kw">regulated technology programs</span> in <span class="kw">financial services</span>, and I'm building the <span class="kw">AI tools</span> I want to use on my next program.
           </p>
           <div class="flex flex-wrap items-center gap-3">
-            <a href="#projects" class="inline-flex items-center gap-2 bg-ink text-paper px-6 py-3.5 text-sm uppercase tracking-widest hover:bg-cobalt transition-colors">
-              See My Work
-              <span aria-hidden>→</span>
+            <a href="#projects" class="inline-flex items-center gap-2 bg-blue text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-blueDk transition-colors">
+              See My Work <span aria-hidden>→</span>
             </a>
-            <a href="https://www.linkedin.com/in/tammychanps/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3.5 border border-ink text-ink hover:bg-ink hover:text-paper transition-colors text-sm uppercase tracking-widest">
-              LinkedIn
+            <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-ink text-ink hover:bg-ink hover:text-cream transition-colors text-sm font-semibold">
+              Get in Touch
             </a>
-            <a href="https://github.com/tammychanps" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3.5 text-ink underline-wipe text-sm uppercase tracking-widest">
-              GitHub
-            </a>
+            <div class="flex items-center gap-2 ml-2">
+              <a href="https://www.linkedin.com/in/tammychanps/" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-10 h-10 rounded-full border border-line flex items-center justify-center text-ink2 hover:text-blue hover:border-blue transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              </a>
+              <a href="https://github.com/tammychanps" target="_blank" rel="noopener" aria-label="GitHub" class="w-10 h-10 rounded-full border border-line flex items-center justify-center text-ink2 hover:text-blue hover:border-blue transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+              <a href="mailto:hello@example.com" aria-label="Email" class="w-10 h-10 rounded-full border border-line flex items-center justify-center text-ink2 hover:text-blue hover:border-blue transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </a>
+            </div>
           </div>
         </div>
 
-        <!-- Right: photo placeholder -->
-        <div class="lg:col-span-5 rise rise-2">
-          <div class="photo-placeholder relative">
-            <span>TC</span>
-            <div class="absolute bottom-0 left-0 right-0 mono text-[9px] uppercase tracking-widest text-mute p-3 bg-paper/80 backdrop-blur-sm">
-              [ photo placeholder · headshot.jpg ]
-            </div>
+        <div class="lg:col-span-5 flex justify-center lg:justify-end rise rise-2">
+          <div class="photo-wrap">
+            <span class="photo-fallback">TC</span>
           </div>
         </div>
 
@@ -272,92 +267,78 @@
     </div>
   </section>
 
-  <!-- ─────────────────────────  NOW BLOCK (replaces CAB card)  ───────────────────────── -->
-  <section id="now" class="px-6 lg:px-10 bg-warmgray/40 border-y border-line">
-    <div class="max-w-6xl mx-auto py-12 lg:py-16">
+  <!-- ─────────────────────────  ABOUT / WHAT I DO / MY PASSION  ───────────────────────── -->
+  <section id="about" class="px-6 lg:px-10 bg-cream2/60 border-y border-line">
+    <div class="max-w-6xl mx-auto py-16 lg:py-20">
+      <div class="grid lg:grid-cols-3 gap-10 lg:gap-14">
+
+        <div>
+          <div class="sec-label mb-4">
+            <span class="sec-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/></svg></span>
+            About Me
+          </div>
+          <p class="text-base text-ink2 leading-relaxed">
+            16 years shipping <span class="kw">regulated technology</span> at HSBC across Hong Kong, London, and now <span class="kw">San Jose</span>. From a J2EE platform serving 1M members, to a $10B+ asset program, to an Open Banking API connecting 2M+ customers across Europe.
+          </p>
+        </div>
+
+        <div>
+          <div class="sec-label mb-4">
+            <span class="sec-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
+            What I Do
+          </div>
+          <p class="text-base text-ink2 leading-relaxed">
+            I lead <span class="kw">complex programs</span> where regulators, auditors, and customer trust are non-negotiable. I make delivery predictable, risks visible, and the path to GO-LIVE shorter without cutting corners.
+          </p>
+        </div>
+
+        <div>
+          <div class="sec-label mb-4">
+            <span class="sec-icon"><svg viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3.54A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3.54A2.5 2.5 0 0 0 14.5 2z"/></svg></span>
+            My Passion
+          </div>
+          <p class="text-base text-ink2 leading-relaxed">
+            Building <span class="kw">AI tools</span> for the program problems I've seen up close. Three are already public on GitHub. The next ones live in the Building section below.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────  NOW BLOCK  ───────────────────────── -->
+  <section id="now" class="px-6 lg:px-10">
+    <div class="max-w-6xl mx-auto py-16 lg:py-20">
       <div class="grid lg:grid-cols-12 gap-10">
         <div class="lg:col-span-3">
-          <div class="mono text-[10px] uppercase tracking-widest text-cobalt mb-2">·· NOW</div>
-          <h2 class="display text-ink text-3xl lg:text-4xl leading-tight">A snapshot.</h2>
-          <p class="text-sm text-mute mt-3 leading-relaxed">Updated as life happens. Inspired by <a href="https://sive.rs/now" target="_blank" rel="noopener" class="text-cobalt underline-wipe">/now pages</a>.</p>
+          <div class="sec-label mb-3">
+            <span class="sec-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+            Now
+          </div>
+          <h2 class="hero-name text-3xl lg:text-4xl mb-3">A snapshot.</h2>
+          <p class="text-sm text-mute leading-relaxed">Updated as life happens. Inspired by <a href="https://sive.rs/now" target="_blank" rel="noopener" class="text-blue ul-wipe">/now pages</a>.</p>
         </div>
         <div class="lg:col-span-9">
           <div class="space-y-0">
             <div class="now-row">
               <div class="now-label">Currently</div>
-              <div class="text-base lg:text-lg text-ink2 leading-relaxed">
-                Upskilling on applied AI and shipping open-source tools for program problems I've seen at HSBC.
-              </div>
+              <div class="text-base text-ink2 leading-relaxed">Upskilling on applied AI and shipping open-source tools for program problems I've seen at HSBC.</div>
             </div>
             <div class="now-row">
               <div class="now-label">Recently shipped</div>
-              <div class="text-base lg:text-lg text-ink2 leading-relaxed">
-                Three open-source AI projects on GitHub. <a href="#projects" class="text-cobalt underline-wipe">See projects ↓</a>
-              </div>
+              <div class="text-base text-ink2 leading-relaxed">Three open-source AI projects on GitHub. <a href="#projects" class="text-blue ul-wipe">See projects ↓</a></div>
             </div>
             <div class="now-row">
               <div class="now-label">Studying</div>
-              <div class="text-base lg:text-lg text-ink2 leading-relaxed">
-                Working toward ITIL 4 Foundation and PMP.
-              </div>
+              <div class="text-base text-ink2 leading-relaxed">Working toward ITIL 4 Foundation and PMP.</div>
             </div>
             <div class="now-row">
               <div class="now-label">Open to</div>
-              <div class="text-base lg:text-lg text-ink2 leading-relaxed">
-                Senior TPM, delivery, and program management roles. Bay Area, hybrid, or remote. Banks, insurance, fintech, consulting.
-              </div>
+              <div class="text-base text-ink2 leading-relaxed">Senior TPM, delivery, and program management roles. Bay Area, hybrid, or remote. Banks, insurance, fintech, consulting.</div>
             </div>
             <div class="now-row">
               <div class="now-label">Speaks</div>
-              <div class="text-base lg:text-lg text-ink2 leading-relaxed">
-                English · Mandarin · Cantonese
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─────────────────────────  ABOUT  ───────────────────────── -->
-  <section id="about" class="px-6 lg:px-10">
-    <div class="max-w-6xl mx-auto py-20 lg:py-28">
-
-      <div class="mono text-[10px] uppercase tracking-widest text-cobalt mb-3">·· ABOUT</div>
-      <h2 class="display text-ink text-4xl md:text-5xl leading-tight mb-12 max-w-3xl [text-wrap:balance]">
-        A delivery practitioner from one of the world's most regulated banks, returning with a portfolio of AI tools she built herself.
-      </h2>
-
-      <div class="grid lg:grid-cols-12 gap-12">
-
-        <!-- Left: prose intro -->
-        <div class="lg:col-span-7 space-y-6 text-base lg:text-lg leading-relaxed text-ink2 max-w-prose">
-          <p>
-            I built and delivered technology that runs regulated banking at HSBC, in Hong Kong and then London. From a J2EE onboarding platform serving a million members, to a global program managing $10B+ in institutional assets, to an Open Banking API platform connecting 2M+ customers across Europe. The thread across all of it: shipping change in environments where regulators, auditors, and customer trust are non-negotiable.
-          </p>
-          <p>
-            After relocating to San Jose, I took some time to settle in. I've since been upskilling on applied AI and shipping open-source tools for program problems I've seen at HSBC. Three are public on GitHub. More to come.
-          </p>
-          <p class="text-mute italic">
-            Looking for senior delivery and program roles where this combination is useful.
-          </p>
-        </div>
-
-        <!-- Right: How I work, 3 outcome wins -->
-        <div class="lg:col-span-5">
-          <div class="mono text-[10px] uppercase tracking-widest text-cobalt mb-4">HOW I WORK</div>
-          <div class="space-y-6">
-            <div class="border-l-2 border-cobalt pl-5">
-              <div class="mono text-[10px] uppercase tracking-wider text-cobalt mb-1">Win 01 · Release pipeline</div>
-              <p class="text-sm text-ink2 leading-relaxed">Took a release pipeline from 30 to 100+ deploys per month while cutting incidents by 30%. The bottleneck was in pre-release approvals, not in the code.</p>
-            </div>
-            <div class="border-l-2 border-cobalt pl-5">
-              <div class="mono text-[10px] uppercase tracking-wider text-cobalt mb-1">Win 02 · Off-track recovery</div>
-              <p class="text-sm text-ink2 leading-relaxed">Recovered a 2-week-late Open Banking program by switching to daily 24-hour goals. Hit the accelerated date with zero incidents.</p>
-            </div>
-            <div class="border-l-2 border-cobalt pl-5">
-              <div class="mono text-[10px] uppercase tracking-wider text-cobalt mb-1">Win 03 · Ghost feature</div>
-              <p class="text-sm text-ink2 leading-relaxed">Found a ghost feature eating 10% of support volume by joining backend logs against incident tickets in SQL. Roadmap reprioritized, support tickets down 25% in 3 months.</p>
+              <div class="text-base text-ink2 leading-relaxed">English · Mandarin · Cantonese</div>
             </div>
           </div>
         </div>
@@ -366,215 +347,294 @@
   </section>
 
   <!-- ─────────────────────────  PROJECTS  ───────────────────────── -->
-  <section id="projects" class="px-6 lg:px-10 bg-warmgray/40 border-y border-line">
-    <div class="max-w-6xl mx-auto py-20 lg:py-28">
+  <section id="projects" class="px-6 lg:px-10 bg-cream2/60 border-y border-line">
+    <div class="max-w-6xl mx-auto py-16 lg:py-24">
 
       <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
         <div>
-          <div class="mono text-[10px] uppercase tracking-widest text-cobalt mb-3">·· PROJECTS · 03</div>
-          <h2 class="display text-ink text-4xl md:text-5xl leading-tight max-w-2xl [text-wrap:balance]">
-            Three production-grade tools, built for environments where AI has to stay inside the bank.
+          <div class="sec-label mb-3">
+            <span class="sec-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+            Projects · Three shipped
+          </div>
+          <h2 class="hero-name text-4xl md:text-5xl max-w-2xl">
+            AI tools, built for the bank that can't send data to the cloud.
           </h2>
         </div>
-        <a href="https://github.com/tammychanps" target="_blank" rel="noopener" class="text-sm text-cobalt underline-wipe whitespace-nowrap">
+        <a href="https://github.com/tammychanps" target="_blank" rel="noopener" class="text-sm font-semibold text-blue ul-wipe whitespace-nowrap">
           View all on GitHub →
         </a>
       </div>
 
-      <!-- 3 project cards -->
-      <div class="grid md:grid-cols-3 gap-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-        <a href="projects/change-risk.html" class="project-card bg-paper border border-line p-7 group">
-          <div class="flex items-center justify-between mb-5">
-            <div class="mono text-[10px] uppercase tracking-widest text-cobalt">CASE 01</div>
-            <div class="mono text-[10px] text-mute">131 tests</div>
+        <a href="projects/change-risk.html" class="project-card group">
+          <div class="img-wrap">
+            <img src="assets/projects/change-risk.png" alt="Change Risk Scoring infographic" loading="lazy" />
           </div>
-          <h3 class="display text-2xl text-ink leading-tight mb-3">Change Risk Scoring Engine</h3>
-          <p class="text-sm text-ink2/80 leading-relaxed mb-6">
-            Auditable change risk scoring on 8 weighted dimensions. Inherent vs. residual risk model from ISO 31000. CAB-ready narrative on an on-premise LLM.
-          </p>
-          <div class="flex flex-wrap gap-1.5 mb-5">
-            <span class="text-[10px] mono uppercase text-mute border border-line px-2 py-0.5">Python</span>
-            <span class="text-[10px] mono uppercase text-mute border border-line px-2 py-0.5">LangChain</span>
-            <span class="text-[10px] mono uppercase text-mute border border-line px-2 py-0.5">FAISS</span>
-            <span class="text-[10px] mono uppercase text-mute border border-line px-2 py-0.5">Ollama</span>
+          <div class="body">
+            <div class="meta-row">
+              <span class="meta-badge">Case 01 · AI Tool</span>
+              <span class="meta-dot">·</span>
+              <span>131 tests</span>
+            </div>
+            <h3 class="card-title">Change Risk Scoring Engine</h3>
+            <p class="card-excerpt">
+              Auditable change risk scoring on 8 weighted dimensions. Inherent vs. residual risk model from ISO 31000. CAB-ready narrative on a local LLM.
+            </p>
+            <span class="card-link">Read the case <span aria-hidden>→</span></span>
           </div>
-          <div class="text-sm text-cobalt underline-wipe">Read the case →</div>
         </a>
 
-        <a href="projects/incident-pattern.html" class="project-card bg-paper border border-line p-7 group">
-          <div class="flex items-center justify-between mb-5">
-            <div class="mono text-[10px] uppercase tracking-widest text-cobalt">CASE 02</div>
-            <div class="mono text-[10px] text-mute">21 tests</div>
+        <a href="projects/incident-pattern.html" class="project-card group">
+          <div class="img-wrap">
+            <img src="assets/projects/incident-pattern.png" alt="Incident Pattern Analyzer infographic" loading="lazy" />
           </div>
-          <h3 class="display text-2xl text-ink leading-tight mb-3">Incident Pattern Analyzer</h3>
-          <p class="text-sm text-ink2/80 leading-relaxed mb-6">
-            Operational resilience pattern detection. Clusters incidents, surfaces recurring root causes, and points to runbooks that already address each cluster.
-          </p>
-          <div class="flex flex-wrap gap-1.5 mb-5">
-            <span class="text-[10px] mono uppercase text-mute border border-line px-2 py-0.5">Python</span>
-            <span class="text-[10px] mono uppercase text-mute border border-line px-2 py-0.5">LangChain</span>
-            <span class="text-[10px] mono uppercase text-mute border border-line px-2 py-0.5">FAISS</span>
-            <span class="text-[10px] mono uppercase text-mute border border-line px-2 py-0.5">Ollama</span>
+          <div class="body">
+            <div class="meta-row">
+              <span class="meta-badge">Case 02 · AI Tool</span>
+              <span class="meta-dot">·</span>
+              <span>21 tests</span>
+            </div>
+            <h3 class="card-title">Incident Pattern Analyzer</h3>
+            <p class="card-excerpt">
+              Clusters incidents by root cause, surfaces recurring patterns, and points to the runbook that already addresses each cluster.
+            </p>
+            <span class="card-link">Read the case <span aria-hidden>→</span></span>
           </div>
-          <div class="text-sm text-cobalt underline-wipe">Read the case →</div>
         </a>
 
-        <a href="projects/program-status.html" class="project-card bg-paper border border-line p-7 group">
-          <div class="flex items-center justify-between mb-5">
-            <div class="mono text-[10px] uppercase tracking-widest text-cobalt">CASE 03</div>
-            <div class="mono text-[10px] text-mute">21 tests</div>
+        <a href="projects/program-status.html" class="project-card group">
+          <div class="img-wrap">
+            <img src="assets/projects/program-status.png" alt="Program Status Report Generator infographic" loading="lazy" />
           </div>
-          <h3 class="display text-2xl text-ink leading-tight mb-3">Program Status Report Generator</h3>
-          <p class="text-sm text-ink2/80 leading-relaxed mb-6">
-            Stakeholder-aware reporting that turns Jira exports and project charters into a structured weekly status report. Templated where it can be, AI-narrated where it should be.
-          </p>
-          <div class="flex flex-wrap gap-1.5 mb-5">
-            <span class="text-[10px] mono uppercase text-mute border border-line px-2 py-0.5">Python</span>
-            <span class="text-[10px] mono uppercase text-mute border border-line px-2 py-0.5">LangChain</span>
-            <span class="text-[10px] mono uppercase text-mute border border-line px-2 py-0.5">Ollama</span>
+          <div class="body">
+            <div class="meta-row">
+              <span class="meta-badge">Case 03 · AI Tool</span>
+              <span class="meta-dot">·</span>
+              <span>21 tests</span>
+            </div>
+            <h3 class="card-title">Program Status Report Generator</h3>
+            <p class="card-excerpt">
+              Turns Jira exports and project charters into a goal-aligned executive status report. Templated where it can be, AI-narrated where it should be.
+            </p>
+            <span class="card-link">Read the case <span aria-hidden>→</span></span>
           </div>
-          <div class="text-sm text-cobalt underline-wipe">Read the case →</div>
         </a>
 
       </div>
     </div>
   </section>
 
-  <!-- ─────────────────────────  BUILDING (build list with visual lifecycle)  ───────────────────────── -->
+  <!-- ─────────────────────────  BUILDING  ───────────────────────── -->
   <section id="building" class="px-6 lg:px-10">
-    <div class="max-w-6xl mx-auto py-20 lg:py-28">
+    <div class="max-w-6xl mx-auto py-16 lg:py-24">
 
-      <div class="mono text-[10px] uppercase tracking-widest text-cobalt mb-3">·· BUILDING NEXT</div>
-      <h2 class="display text-ink text-4xl md:text-5xl leading-tight mb-4 max-w-3xl [text-wrap:balance]">
-        What I'm thinking about building next.
-      </h2>
-      <p class="text-base lg:text-lg text-ink2/85 leading-relaxed max-w-3xl mb-2">
-        A few of these gaps are already filled by enterprise vendors like Jellyfish or Atlassian Intelligence. The interesting question is what the lightweight, on-premise versions should look like for teams that can't or won't use cloud AI.
-      </p>
-
-      <!-- Visual lifecycle chart -->
-      <div class="mt-14 mb-4">
-        <div class="mono text-[10px] uppercase tracking-widest text-mute mb-3">PROGRAM LIFECYCLE</div>
-        <div class="lifecycle-track">
-          <!-- 5 markers across the lifecycle -->
-          <div class="lifecycle-marker" style="left: 10%;" title="Pre-mortem question generator"></div>
-          <div class="lifecycle-label-pos" style="left: 10%;">Pre-kickoff</div>
-
-          <div class="lifecycle-marker" style="left: 30%;" title="Roadmap reality check"></div>
-          <div class="lifecycle-label-pos" style="left: 30%;">Planning</div>
-
-          <div class="lifecycle-marker" style="left: 50%;" title="Launch readiness checklist"></div>
-          <div class="lifecycle-label-pos" style="left: 50%;">Shipping</div>
-
-          <div class="lifecycle-marker" style="left: 70%;" title="Sprint goal drift detector"></div>
-          <div class="lifecycle-label-pos" style="left: 70%;">Mid-execution</div>
-
-          <div class="lifecycle-marker" style="left: 90%;" title="Postmortem quality scorer"></div>
-          <div class="lifecycle-label-pos" style="left: 90%;">Post-incident</div>
+      <div class="text-center max-w-3xl mx-auto mb-4">
+        <div class="sec-label justify-center mb-3" style="display:inline-flex">
+          <span class="sec-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+          Building Next
         </div>
+        <h2 class="hero-name text-4xl md:text-5xl mb-4">
+          Five tools across the program lifecycle.
+        </h2>
+        <p class="text-base lg:text-lg text-ink2 leading-relaxed">
+          The next five AI tools I'm thinking about. Each lives in a different phase of the program lifecycle.
+        </p>
+      </div>
+
+      <!-- CYCLE VISUAL -->
+      <div class="max-w-[900px] mx-auto mt-10 mb-4">
+        <svg viewBox="0 0 900 250" class="w-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <marker id="cycle-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/>
+            </marker>
+          </defs>
+
+          <path d="M 90 140 Q 210 50, 300 120 T 500 120 T 700 120 T 850 140"
+                fill="none" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="5 7" stroke-linecap="round"
+                marker-end="url(#cycle-arrow)"/>
+
+          <!-- Node 1: Pre-kickoff (sage) -->
+          <g transform="translate(55, 100)">
+            <circle cx="35" cy="35" r="35" fill="#E8F1E2" stroke="#9DBE9C" stroke-width="2.5"/>
+            <g transform="translate(18,18)" stroke="#4F7D4D" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="17" cy="17" r="14"/>
+              <line x1="17" y1="10" x2="17" y2="17"/>
+              <line x1="17" y1="17" x2="22" y2="20"/>
+            </g>
+            <text x="35" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#4F7D4D" letter-spacing="0.04em">PRE-KICKOFF</text>
+            <text x="35" y="118" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#64748B">Pre-mortem</text>
+          </g>
+
+          <!-- Node 2: Planning (sky) -->
+          <g transform="translate(230, 78)">
+            <circle cx="35" cy="35" r="35" fill="#E1ECF8" stroke="#A8C5E0" stroke-width="2.5"/>
+            <g transform="translate(18,18)" stroke="#2563EB" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="22" x2="10" y2="16"/>
+              <line x1="10" y1="16" x2="18" y2="22"/>
+              <line x1="18" y1="22" x2="30" y2="8"/>
+              <polyline points="24,8 30,8 30,14"/>
+            </g>
+            <text x="35" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#2563EB" letter-spacing="0.04em">PLANNING</text>
+            <text x="35" y="118" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#64748B">Reality check</text>
+          </g>
+
+          <!-- Node 3: Shipping (peach) -->
+          <g transform="translate(415, 78)">
+            <circle cx="35" cy="35" r="35" fill="#FBE7D2" stroke="#F4B886" stroke-width="2.5"/>
+            <g transform="translate(18,18)" stroke="#B5621A" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 8 L28 8 L28 26 L17 31 L6 26 z"/>
+              <line x1="10" y1="14" x2="24" y2="14"/>
+              <line x1="10" y1="20" x2="24" y2="20"/>
+            </g>
+            <text x="35" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#B5621A" letter-spacing="0.04em">SHIPPING</text>
+            <text x="35" y="118" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#64748B">Launch checklist</text>
+          </g>
+
+          <!-- Node 4: Mid-execution (butter) -->
+          <g transform="translate(600, 78)">
+            <circle cx="35" cy="35" r="35" fill="#FAF0CC" stroke="#F1DCA7" stroke-width="2.5"/>
+            <g transform="translate(18,18)" stroke="#8B6914" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="17" cy="17" r="13"/>
+              <line x1="7" y1="17" x2="27" y2="17"/>
+              <path d="M17 4 a13 13 0 0 1 0 26"/>
+            </g>
+            <text x="35" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#8B6914" letter-spacing="0.04em">MID-EXECUTION</text>
+            <text x="35" y="118" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#64748B">Drift detector</text>
+          </g>
+
+          <!-- Node 5: Post-incident (lilac) -->
+          <g transform="translate(785, 100)">
+            <circle cx="35" cy="35" r="35" fill="#ECE2F6" stroke="#C8B6E2" stroke-width="2.5"/>
+            <g transform="translate(18,18)" stroke="#6B4F96" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 7 H24 L28 11 V28 H5 z"/>
+              <line x1="10" y1="14" x2="24" y2="14"/>
+              <line x1="10" y1="19" x2="24" y2="19"/>
+              <line x1="10" y1="24" x2="20" y2="24"/>
+            </g>
+            <text x="35" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#6B4F96" letter-spacing="0.04em">POST-INCIDENT</text>
+            <text x="35" y="118" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#64748B">Quality scorer</text>
+          </g>
+        </svg>
       </div>
 
       <!-- 5 build cards -->
-      <div class="grid md:grid-cols-2 gap-5 mt-12">
-
-        <div class="build-card border border-line p-6 bg-paper">
-          <div class="flex items-center justify-between mb-3">
-            <span class="lifecycle-pill">◆ Pre-kickoff · Risk surfacing</span>
-            <span class="mono text-[10px] text-mute">01</span>
-          </div>
-          <h3 class="display text-xl text-ink mb-2 leading-tight">Pre-mortem question generator</h3>
-          <p class="text-sm text-ink2/80 leading-relaxed">
-            Input a project plan. Output the top ten questions a smart pessimist would ask before kickoff, so the risks get surfaced while there's still time to mitigate them.
+      <div class="grid md:grid-cols-2 gap-6 mt-6">
+        <div class="build-card">
+          <div class="build-num" style="color:#9DBE9C">01</div>
+          <span class="build-pill pill-sage">◆ Pre-kickoff</span>
+          <h3 class="font-bold text-lg text-ink mb-2">Pre-mortem question generator</h3>
+          <p class="text-sm text-ink2/85 leading-relaxed">
+            Input a project plan. Output the top ten questions a smart pessimist would ask before kickoff, so risks get surfaced while there's still time to mitigate them.
           </p>
         </div>
-
-        <div class="build-card border border-line p-6 bg-paper">
-          <div class="flex items-center justify-between mb-3">
-            <span class="lifecycle-pill">◆ Planning · Forecasting</span>
-            <span class="mono text-[10px] text-mute">02</span>
-          </div>
-          <h3 class="display text-xl text-ink mb-2 leading-tight">Roadmap reality check</h3>
-          <p class="text-sm text-ink2/80 leading-relaxed">
-            Compares stated commitments against velocity and dependency data, generates a confidence score for each milestone before the exec has to ask.
+        <div class="build-card">
+          <div class="build-num" style="color:#A8C5E0">02</div>
+          <span class="build-pill pill-sky">◆ Planning</span>
+          <h3 class="font-bold text-lg text-ink mb-2">Roadmap reality check</h3>
+          <p class="text-sm text-ink2/85 leading-relaxed">
+            Compares stated commitments against velocity and dependency data. Generates a confidence score for each milestone before the exec has to ask.
           </p>
         </div>
-
-        <div class="build-card border border-line p-6 bg-paper">
-          <div class="flex items-center justify-between mb-3">
-            <span class="lifecycle-pill">◆ Shipping · Automation</span>
-            <span class="mono text-[10px] text-mute">03</span>
-          </div>
-          <h3 class="display text-xl text-ink mb-2 leading-tight">Launch readiness checklist generator</h3>
-          <p class="text-sm text-ink2/80 leading-relaxed">
-            Input a feature description and target launch date. Output a tailored checklist covering legal, support, marketing, oncall, monitoring, and rollback, with owners and due dates already filled in.
+        <div class="build-card">
+          <div class="build-num" style="color:#F4B886">03</div>
+          <span class="build-pill pill-peach">◆ Shipping</span>
+          <h3 class="font-bold text-lg text-ink mb-2">Launch readiness checklist generator</h3>
+          <p class="text-sm text-ink2/85 leading-relaxed">
+            Input a feature description and target launch date. Output a tailored checklist covering legal, support, marketing, oncall, monitoring, and rollback. Owners and due dates filled in.
           </p>
         </div>
-
-        <div class="build-card border border-line p-6 bg-paper">
-          <div class="flex items-center justify-between mb-3">
-            <span class="lifecycle-pill">◆ Mid-execution · Drift detection</span>
-            <span class="mono text-[10px] text-mute">04</span>
-          </div>
-          <h3 class="display text-xl text-ink mb-2 leading-tight">Sprint goal drift detector</h3>
-          <p class="text-sm text-ink2/80 leading-relaxed">
-            Every Friday reads the sprint board, compares to the sprint goal, flags tickets that don't ladder up so scope creep gets caught mid-sprint instead of mid-quarter.
+        <div class="build-card">
+          <div class="build-num" style="color:#F1DCA7">04</div>
+          <span class="build-pill pill-butter">◆ Mid-execution</span>
+          <h3 class="font-bold text-lg text-ink mb-2">Sprint goal drift detector</h3>
+          <p class="text-sm text-ink2/85 leading-relaxed">
+            Every Friday reads the sprint board, compares to the sprint goal, flags tickets that don't ladder up. Catches scope creep mid-sprint instead of mid-quarter.
           </p>
         </div>
-
-        <div class="build-card border border-line p-6 bg-paper">
-          <div class="flex items-center justify-between mb-3">
-            <span class="lifecycle-pill">◆ Post-incident · Quality scoring</span>
-            <span class="mono text-[10px] text-mute">05</span>
-          </div>
-          <h3 class="display text-xl text-ink mb-2 leading-tight">Postmortem quality scorer</h3>
-          <p class="text-sm text-ink2/80 leading-relaxed">
-            Reads an incident postmortem, scores it on completeness covering root cause, contributing factors, action items, and blameless tone, suggests what's missing.
+        <div class="build-card md:col-span-2 md:max-w-[calc(50%-0.75rem)] md:mx-auto">
+          <div class="build-num" style="color:#C8B6E2">05</div>
+          <span class="build-pill pill-lilac">◆ Post-incident</span>
+          <h3 class="font-bold text-lg text-ink mb-2">Postmortem quality scorer</h3>
+          <p class="text-sm text-ink2/85 leading-relaxed">
+            Reads an incident postmortem and scores it on completeness covering root cause, contributing factors, action items, and blameless tone. Suggests what's missing.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ─────────────────────────  CONTACT  ───────────────────────── -->
-  <section id="contact" class="px-6 lg:px-10 bg-warmgray/40 border-t border-line">
-    <div class="max-w-6xl mx-auto py-20 lg:py-28">
-      <div class="grid lg:grid-cols-12 gap-10 items-start">
-        <div class="lg:col-span-7">
-          <div class="mono text-[10px] uppercase tracking-widest text-cobalt mb-3">·· CONTACT</div>
-          <h2 class="display text-ink text-4xl md:text-5xl leading-tight mb-6 [text-wrap:balance]">
-            Looking for a senior TPM who already speaks regulator?
+  <!-- ─────────────────────────  CONTACT (aradhya "Let's Connect" pattern)  ───────────────────────── -->
+  <section id="contact" class="px-6 lg:px-10 bg-cream2/60 border-t border-line">
+    <div class="max-w-6xl mx-auto py-16 lg:py-24">
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-6">
+          <div class="sec-label mb-4">
+            <span class="sec-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+            Let's Connect
+          </div>
+          <h2 class="hero-name text-4xl md:text-5xl mb-5">
+            Ready to build something together?
           </h2>
-          <p class="text-base lg:text-lg text-ink2/85 leading-relaxed max-w-2xl">
-            I'm based in San Jose, California, and exploring opportunities in the Bay Area. Open to onsite, hybrid, or fully remote roles in financial services. Banks, credit unions, insurance, fintech, and consulting all welcome. The fastest way to reach me is LinkedIn.
+          <p class="text-base lg:text-lg text-ink2 leading-relaxed max-w-xl mb-2">
+            Based in <span class="kw">San Jose, California</span>. Open to onsite, hybrid, or fully remote roles in financial services. The fastest way to reach me is LinkedIn.
           </p>
         </div>
 
-        <div class="lg:col-span-5">
-          <div class="space-y-3">
-            <a href="https://www.linkedin.com/in/tammychanps/" target="_blank" rel="noopener" class="block bg-ink text-paper px-5 py-4 hover:bg-cobalt transition-colors">
-              <div class="text-[10px] uppercase tracking-widest text-paper/60 mb-1">Primary</div>
-              <div class="font-medium tracking-tight">LinkedIn → /in/tammychanps</div>
-            </a>
-            <a href="mailto:hello@example.com" class="block border border-ink text-ink px-5 py-4 hover:bg-ink hover:text-paper transition-colors">
-              <div class="text-[10px] uppercase tracking-widest text-mute mb-1">Email</div>
-              <div class="font-medium tracking-tight">hello@example.com</div>
-            </a>
-            <a href="https://github.com/tammychanps" target="_blank" rel="noopener" class="block border border-line text-ink px-5 py-4 hover:border-ink transition-colors">
-              <div class="text-[10px] uppercase tracking-widest text-mute mb-1">Code</div>
-              <div class="font-medium tracking-tight">github.com/tammychanps</div>
-            </a>
+        <div class="lg:col-span-6 space-y-4 lg:pt-8">
+          <a href="https://www.linkedin.com/in/tammychanps/" target="_blank" rel="noopener" class="contact-card group">
+            <span class="contact-icon" style="background:#EFF4FF">
+              <svg viewBox="0 0 24 24" fill="#2563EB"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </span>
+            <div>
+              <div class="font-semibold text-ink group-hover:text-blue transition-colors">LinkedIn</div>
+              <div class="text-sm text-mute">/in/tammychanps</div>
+            </div>
+            <span class="ml-auto text-mute group-hover:text-blue transition-colors" aria-hidden>→</span>
+          </a>
+
+          <a href="mailto:hello@example.com" class="contact-card group">
+            <span class="contact-icon" style="background:#FEF3C7">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+            <div>
+              <div class="font-semibold text-ink group-hover:text-blue transition-colors">Email</div>
+              <div class="text-sm text-mute">hello@example.com</div>
+            </div>
+            <span class="ml-auto text-mute group-hover:text-blue transition-colors" aria-hidden>→</span>
+          </a>
+
+          <a href="https://github.com/tammychanps" target="_blank" rel="noopener" class="contact-card group">
+            <span class="contact-icon" style="background:#F1F5F9">
+              <svg viewBox="0 0 24 24" fill="#334155"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </span>
+            <div>
+              <div class="font-semibold text-ink group-hover:text-blue transition-colors">GitHub</div>
+              <div class="text-sm text-mute">tammychanps</div>
+            </div>
+            <span class="ml-auto text-mute group-hover:text-blue transition-colors" aria-hidden>→</span>
+          </a>
+
+          <div class="contact-card" style="cursor:default">
+            <span class="contact-icon" style="background:#ECFDF5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            <div>
+              <div class="font-semibold text-ink">Location</div>
+              <div class="text-sm text-mute">San Jose, California</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <footer class="px-6 lg:px-10 border-t border-line bg-paper">
+  <footer class="px-6 lg:px-10 border-t border-line bg-cream">
     <div class="max-w-6xl mx-auto py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-mute">
       <div>© 2026 Tammy Chan · San Jose, California</div>
-      <div class="mono text-[10px] uppercase tracking-widest">
-        v1.3 · <a href="https://github.com/tammychanps/Portfolio" class="text-ink underline-wipe">Source on GitHub</a>
+      <div class="text-[10px] uppercase tracking-widest font-semibold">
+        v1.4 · <a href="https://github.com/tammychanps/Portfolio" class="text-ink ul-wipe">Source on GitHub</a>
       </div>
     </div>
   </footer>

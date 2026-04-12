@@ -17,3 +17,16 @@ build/
 
 # Local screenshots from design iteration
 temporary screenshots/
+
+# Secrets — never commit
+.env
+.env.*
+*.key
+
+# Local-only progress / preview files
+progress-*.md
+projects/preview-*.html
+
+# Image generation script (uses API key) and any local-only generation logs
+gen-infographics.py
+gen-infographics.log

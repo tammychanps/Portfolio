@@ -4,241 +4,146 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Program Status Report Generator · Tammy Chan</title>
-  <meta name="description" content="Stakeholder-aware reporting that turns Jira exports and project charters into a structured weekly status report. Templated where it can be, AI-narrated where it should be." />
-
+  <meta name="description" content="Turns Jira exports and project charters into goal-aligned executive status reports." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            paper: '#FAFAF9', ink: '#0A0A0A', ink2: '#1F1F1F',
-            cobalt: '#3366CC', cobalt2: '#1E4FBA', mute: '#767066',
-            line: '#E8E5DD', sage: '#5C8A6B', warmgray: '#F0EEE6',
-            warn: '#C97A2F',
-          },
-          fontFamily: {
-            display: ['"Instrument Serif"', 'Georgia', 'serif'],
-            sans:    ['"Inter"', 'system-ui', 'sans-serif'],
-            mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
-          },
-        }
-      }
-    }
+    tailwind.config = { theme: { extend: {
+      colors: { cream:'#FAF8F2', cream2:'#F4EFE2', ink:'#1A2238', ink2:'#334155', mute:'#64748B', line:'#E8E1D0', blue:'#2563EB', blueDk:'#1D4ED8' },
+      fontFamily: { sans: ['"Inter"', 'system-ui', 'sans-serif'] },
+    } } }
   </script>
-
   <style>
-    body { font-family: 'Inter', system-ui, sans-serif; color: #1F1F1F; background: #FAFAF9; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-feature-settings: "ss01", "cv11"; }
-    .display { font-family: 'Instrument Serif', Georgia, serif; line-height: 1.0; letter-spacing: -0.01em; }
-    .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
-    .nav-link { position: relative; color: #1F1F1F; transition: color 200ms ease; }
-    .nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: #3366CC; transform: scaleX(0); transform-origin: left; transition: transform 280ms cubic-bezier(.2,.7,.3,1); }
-    .nav-link:hover { color: #3366CC; }
-    .nav-link:hover::after { transform: scaleX(1); }
-    .underline-wipe { background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1px; background-repeat: no-repeat; background-position: 0 100%; transition: background-size 280ms cubic-bezier(.2,.7,.3,1); }
-    .underline-wipe:hover { background-size: 100% 1px; }
-    .case-num { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #3366CC; }
-    .info-card { background: white; border: 1px solid #E8E5DD; padding: 1.5rem; }
-    .info-card-cobalt { background: rgba(51,102,204,0.04); border: 1px solid rgba(51,102,204,0.25); padding: 1.5rem; }
-    .info-card-warm { background: rgba(201,122,47,0.04); border: 1px solid rgba(201,122,47,0.25); padding: 1.5rem; }
-    .stat-num { font-family: 'Instrument Serif', Georgia, serif; font-size: 3rem; line-height: 0.9; color: #3366CC; }
-    .flow-arrow { position: relative; display: flex; align-items: center; justify-content: center; color: #3366CC; font-size: 1.5rem; }
-    @media (max-width: 767px) { .flow-arrow { transform: rotate(90deg); margin: 0.5rem 0; } }
-    .stat-label { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: #767066; }
-    .tech-tag { display: inline-flex; align-items: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #767066; border: 1px solid #E8E5DD; padding: 0.25rem 0.55rem; }
+    body { font-family:'Inter',system-ui,sans-serif; background:#FAF8F2; color:#334155; -webkit-font-smoothing:antialiased; }
+    .display { font-weight:800; letter-spacing:-0.025em; color:#1A2238; line-height:1.1; }
+    .nav-link { position:relative; color:#334155; font-weight:500; transition:color 200ms; }
+    .nav-link::after { content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px; background:#2563EB; transform:scaleX(0); transform-origin:left; transition:transform 280ms cubic-bezier(.2,.7,.3,1); }
+    .nav-link:hover { color:#2563EB; }
+    .nav-link:hover::after { transform:scaleX(1); }
+    .ul-wipe { background-image:linear-gradient(currentColor,currentColor); background-size:0% 1px; background-repeat:no-repeat; background-position:0 100%; transition:background-size 280ms; }
+    .ul-wipe:hover { background-size:100% 1px; }
+    .pill { display:inline-flex; align-items:center; font-size:0.7rem; font-weight:600; padding:0.3rem 0.7rem; border-radius:999px; background:#EFF4FF; color:#1D4ED8; }
+    .sec-icon { width:28px; height:28px; border-radius:8px; background:#EFF4FF; border:1px solid #DBE7FF; display:inline-flex; align-items:center; justify-content:center; margin-right:0.5rem; vertical-align:middle; }
+    .sec-icon svg { width:14px; height:14px; stroke:#2563EB; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .prose-block h3 { font-weight:700; color:#1A2238; font-size:1.1rem; margin-bottom:0.6rem; letter-spacing:-0.01em; display:flex; align-items:center; }
+    .prose-block ul { color:#475569; line-height:1.65; font-size:0.96rem; list-style:none; padding:0; margin:0; }
+    .prose-block ul li { position:relative; padding-left:1.3rem; margin-bottom:0.55rem; }
+    .prose-block ul li::before { content:""; position:absolute; left:0; top:0.6em; width:6px; height:6px; border-radius:999px; background:#2563EB; opacity:0.5; }
+    .prose-block p { color:#475569; line-height:1.65; font-size:0.96rem; }
+    .divider { height:1px; background:#E8E1D0; margin:2rem 0; }
   </style>
 </head>
+<body class="bg-cream text-ink2">
 
-<body class="font-sans text-ink2 bg-paper">
-
-  <header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-line">
+  <header class="sticky top-0 z-50 bg-cream/85 backdrop-blur-md border-b border-line">
     <div class="max-w-6xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-      <a href="../index.html" class="display text-ink text-2xl">
-        Tammy Chan<span class="text-cobalt italic text-xl">.</span>
-      </a>
+      <a href="../index.html" class="text-ink font-extrabold text-lg tracking-tight">Tammy Chan<span class="text-blue">.</span></a>
       <nav class="hidden md:flex items-center gap-8 text-sm">
-        <a href="../index.html#home"     class="nav-link">Home</a>
-        <a href="../index.html#about"    class="nav-link">About</a>
+        <a href="../index.html#home" class="nav-link">Home</a>
+        <a href="../index.html#about" class="nav-link">About</a>
         <a href="../index.html#projects" class="nav-link">Projects</a>
         <a href="../index.html#building" class="nav-link">Building</a>
-        <a href="../index.html#contact"  class="nav-link">Contact</a>
+        <a href="../index.html#contact" class="nav-link">Contact</a>
       </nav>
-      <a href="../assets/resume.pdf" class="inline-flex items-center gap-2 bg-ink text-paper px-4 py-2 text-xs uppercase tracking-widest hover:bg-cobalt transition-colors">
-        Résumé <span aria-hidden>↓</span>
-      </a>
+      <a href="../assets/resume.pdf" class="inline-flex items-center gap-2 bg-blue text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wide hover:bg-blueDk transition-colors">Résumé ↓</a>
     </div>
   </header>
 
-  <main class="px-6 lg:px-10">
-    <div class="max-w-6xl mx-auto pt-12 pb-20">
+  <article class="px-6 lg:px-10">
+    <div class="max-w-3xl mx-auto pt-12 lg:pt-16 pb-16">
 
-      <div class="mono text-[10px] uppercase tracking-widest text-mute mb-6">
-        <a href="../index.html#projects" class="hover:text-cobalt">← All projects</a>
+      <a href="../index.html#projects" class="inline-flex items-center gap-2 text-sm text-mute hover:text-blue transition-colors mb-8">
+        <span aria-hidden>←</span> Back to projects
+      </a>
+
+      <div class="flex items-center gap-3 text-xs text-mute mb-4">
+        <span class="pill">Case 03 · AI Tool</span>
+        <span>·</span><span>April 2026</span>
+        <span>·</span><span>3 min read</span>
       </div>
 
-      <!-- Header band -->
-      <div class="border-t-2 border-cobalt pt-6 mb-10">
-        <div class="flex items-center justify-between mb-3 flex-wrap gap-3">
-          <div class="case-num">Case 03 · Stakeholder reporting</div>
-          <a href="https://github.com/tammychanps/program-status-report-generator" target="_blank" rel="noopener" class="text-sm text-cobalt underline-wipe">View on GitHub ↗</a>
-        </div>
-        <h1 class="display text-ink text-5xl md:text-6xl lg:text-7xl leading-[1.0] mb-4 [text-wrap:balance]">
-          Program Status <span class="italic text-cobalt">Report Generator</span>
-        </h1>
-        <p class="text-base lg:text-lg text-ink2/85 leading-relaxed max-w-3xl">
-          Turns a Jira export and a project charter into a structured weekly status report on an on-premise LLM. Templated where it can be, AI-narrated where prose is needed. Audit trail preserved end-to-end.
-        </p>
+      <h1 class="display text-4xl md:text-5xl mb-3">Program Status Report Generator</h1>
+      <p class="text-lg text-ink2 leading-relaxed mb-8">
+        Turns Jira exports and project charters into a goal-aligned executive status report. Templated where it can be, AI-narrated where it should be. <strong>Email-ready in seconds.</strong>
+      </p>
 
-        <div class="flex flex-wrap gap-2 mt-6">
-          <span class="tech-tag">Python 3.12</span>
-          <span class="tech-tag">LangChain</span>
-          <span class="tech-tag">Ollama</span>
-          <span class="tech-tag">21 tests</span>
-          <span class="tech-tag">Audit trail</span>
-        </div>
+      <div class="rounded-2xl overflow-hidden border border-line bg-cream2 mb-10">
+        <img src="../assets/projects/program-status.png" alt="Program Status Report Generator infographic" class="w-full h-auto block" />
       </div>
 
-      <!-- 3-column infographic grid -->
-      <div class="grid lg:grid-cols-3 gap-6 mb-10">
-
-        <div class="info-card-warm">
-          <div class="case-num text-warn mb-3">·· The Problem</div>
-          <h2 class="display text-2xl text-ink mb-4 leading-tight">2 to 4 hours per week, per PM. The output is uneven.</h2>
-          <p class="text-sm text-ink2/85 leading-relaxed mb-4">
-            Senior leaders ask for weekly program status reports synthesizing Jira items, project charters, and recent activity into a one-page summary. PMs spend 2 to 4 hours per week on this and the output is uneven across PMs.
-          </p>
-          <ul class="text-sm text-ink2/80 space-y-2">
-            <li class="flex gap-2"><span class="text-warn">●</span> Copy-pasting from filtered Jira views</li>
-            <li class="flex gap-2"><span class="text-warn">●</span> Re-formatting the same template every week</li>
-            <li class="flex gap-2"><span class="text-warn">●</span> Voice and detail level vary by PM</li>
-            <li class="flex gap-2"><span class="text-warn">●</span> Cloud AI not allowed for sensitive program data</li>
-          </ul>
-        </div>
-
-        <div class="info-card-cobalt">
-          <div class="case-num mb-3">·· The Solution</div>
-          <h2 class="display text-2xl text-ink mb-4 leading-tight">Templated where it can be. AI-narrated where it should be.</h2>
-          <p class="text-sm text-ink2/85 leading-relaxed mb-4">
-            A Python tool that ingests a Jira export and a project charter, generates a structured weekly report with status, risks, top tasks, and a narrative summary on an on-premise LLM. Audit trail preserved end-to-end.
-          </p>
-          <ul class="text-sm text-ink2/85 space-y-2">
-            <li class="flex gap-2"><span class="text-cobalt">●</span> Status, risks, top tasks templated from Jira</li>
-            <li class="flex gap-2"><span class="text-cobalt">●</span> Charter context retrieved via RAG</li>
-            <li class="flex gap-2"><span class="text-cobalt">●</span> Narrative summary on local LLM</li>
-            <li class="flex gap-2"><span class="text-cobalt">●</span> All processing local, audit trail preserved</li>
-          </ul>
-        </div>
-
-        <div class="info-card">
-          <div class="case-num mb-3">·· The Impact</div>
-          <h2 class="display text-2xl text-ink mb-4 leading-tight">From a half-day chore to a 15-minute edit.</h2>
-          <div class="grid grid-cols-2 gap-4 mb-4">
-            <div>
-              <div class="stat-num">~10×</div>
-              <div class="stat-label mt-2">Faster than manual</div>
-            </div>
-            <div>
-              <div class="stat-num">21</div>
-              <div class="stat-label mt-2">Pytest tests</div>
-            </div>
-          </div>
-          <p class="text-sm text-ink2/85 leading-relaxed">
-            2 to 4 hours of weekly status writing collapsed into a generated draft a PM edits in 15 minutes. Local LLM means it works in environments where cloud AI is forbidden.
-          </p>
-        </div>
+      <!-- PROBLEM -->
+      <div class="prose-block">
+        <h3>
+          <span class="sec-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
+          The Problem
+        </h3>
+        <ul>
+          <li>Jira dashboards show what happened in a sprint. They don't explain what it means for the program's charter goals. Executives ask "are we on track?" and the PM spends 2-3 hours stitching the answer from sprint data, charter docs, and meeting notes.</li>
+          <li>The status report format drifts over time. Different PMs write different structures. Stakeholders struggle to compare across programs or find the same metric week over week.</li>
+          <li>Blocked items and risk escalations get buried in ticket comments. They rarely surface in the status report unless someone specifically asks, and by then the escalation is late.</li>
+          <li>Charter goals are written once and forgotten. Sprint metrics measure velocity, not whether that velocity is aimed at the right targets. Goal alignment is a judgment call, not a measured one.</li>
+        </ul>
       </div>
 
-      <!-- How it works -->
-      <div class="bg-warmgray/40 border border-line p-8 lg:p-10 mb-10">
-        <div class="case-num mb-3">·· How It Works</div>
-        <h2 class="display text-3xl text-ink mb-8 leading-tight">A Jira export plus a charter goes in. A weekly report comes out.</h2>
+      <div class="divider"></div>
 
-        <div class="grid md:grid-cols-9 gap-4 items-stretch">
-          <div class="md:col-span-1 flex flex-col items-center text-center">
-            <div class="w-14 h-14 rounded-full bg-paper border-2 border-cobalt flex items-center justify-center mono text-cobalt font-bold mb-3">01</div>
-            <div class="mono text-[9px] uppercase tracking-widest text-mute">INGEST</div>
-            <div class="text-xs text-ink2 mt-1">Jira + charter</div>
-          </div>
-          <div class="md:col-span-1 flow-arrow">→</div>
-          <div class="md:col-span-1 flex flex-col items-center text-center">
-            <div class="w-14 h-14 rounded-full bg-paper border-2 border-cobalt flex items-center justify-center mono text-cobalt font-bold mb-3">02</div>
-            <div class="mono text-[9px] uppercase tracking-widest text-mute">STRUCTURE</div>
-            <div class="text-xs text-ink2 mt-1">Status, risks, tasks</div>
-          </div>
-          <div class="md:col-span-1 flow-arrow">→</div>
-          <div class="md:col-span-1 flex flex-col items-center text-center">
-            <div class="w-14 h-14 rounded-full bg-paper border-2 border-cobalt flex items-center justify-center mono text-cobalt font-bold mb-3">03</div>
-            <div class="mono text-[9px] uppercase tracking-widest text-mute">RETRIEVE</div>
-            <div class="text-xs text-ink2 mt-1">Charter context (RAG)</div>
-          </div>
-          <div class="md:col-span-1 flow-arrow">→</div>
-          <div class="md:col-span-1 flex flex-col items-center text-center">
-            <div class="w-14 h-14 rounded-full bg-paper border-2 border-cobalt flex items-center justify-center mono text-cobalt font-bold mb-3">04</div>
-            <div class="mono text-[9px] uppercase tracking-widest text-mute">NARRATE</div>
-            <div class="text-xs text-ink2 mt-1">On-premise LLM</div>
-          </div>
-        </div>
-
-        <div class="mt-8 pt-8 border-t border-line text-center">
-          <div class="mono text-[9px] uppercase tracking-widest text-mute mb-1">OUTPUT</div>
-          <div class="text-base text-ink">One-page weekly status report ready for executive review, with structured sections and a prose summary</div>
-        </div>
+      <!-- APPROACH -->
+      <div class="prose-block">
+        <h3>
+          <span class="sec-icon"><svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></span>
+          The Approach
+        </h3>
+        <ul>
+          <li><strong>Ingest</strong> Jira CSV exports (or any project management tool that exports CSV)</li>
+          <li><strong>Calculate</strong> velocity, completion rate, burndown, and blocked item metrics deterministically</li>
+          <li><strong>Score charter goals</strong> using label-based heuristics, GREEN / AMBER / RED, so goal alignment is measured, not guessed</li>
+          <li><strong>Retrieve</strong> relevant charter context via FAISS RAG, so the narrative ties back to original commitments</li>
+          <li><strong>Generate</strong> executive summary using local Ollama LLM, grounded in the charter language (template fallback if unavailable)</li>
+          <li><strong>Output</strong> a structured Markdown report: summary, goal scorecard, velocity trend, blocked items, risks with owners, and next steps</li>
+        </ul>
       </div>
 
-      <!-- What's in the report -->
-      <div class="grid lg:grid-cols-12 gap-6 mb-10">
-        <div class="lg:col-span-5">
-          <div class="case-num mb-3">·· What's in the report</div>
-          <h2 class="display text-3xl text-ink mb-4 leading-tight">A six-section weekly report, every section earned its place.</h2>
-          <p class="text-sm text-ink2/85 leading-relaxed">
-            The output template is opinionated. Six sections, in this order, because that's the order an executive sponsor reads in. Each section comes from a specific source so the audit trail is reproducible. The narrative summary is the only AI-written part.
-          </p>
-        </div>
-        <div class="lg:col-span-7">
-          <div class="grid grid-cols-2 gap-3 text-sm">
-            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">S1</span>Overall status (RAG: G/A/R)</div>
-            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">S2</span>Top risks &amp; mitigations</div>
-            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">S3</span>Top 5 tasks this week</div>
-            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">S4</span>Top 5 tasks next week</div>
-            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">S5</span>Decisions needed from sponsor</div>
-            <div class="border border-line p-3 bg-paper"><span class="case-num block mb-1">S6</span>Narrative summary (AI-written)</div>
-          </div>
-        </div>
+      <div class="divider"></div>
+
+      <!-- IMPACT -->
+      <div class="prose-block">
+        <h3>
+          <span class="sec-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+          The Impact
+        </h3>
+        <ul>
+          <li><strong>2-3 hours → under a minute</strong> for weekly status report assembly</li>
+          <li><strong>Every claim ties back</strong> to a Jira metric or a charter goal. No hand-waving.</li>
+          <li><strong>Consistent format</strong> across programs: same structure, same metrics, comparable week-over-week</li>
+          <li><strong>Blocked items and risks surface automatically</strong> instead of waiting for someone to ask</li>
+          <li><strong>Email, Confluence, or steering committee ready</strong> out of the box</li>
+          <li><strong>100% on-premise</strong>: 21 pytest tests, Python 3.12, runs offline</li>
+        </ul>
       </div>
 
-      <!-- Footer band -->
-      <div class="border-t-2 border-ink pt-8 grid lg:grid-cols-12 gap-6 items-end">
-        <div class="lg:col-span-8">
-          <div class="case-num mb-2">·· Designed for</div>
-          <p class="text-base lg:text-lg text-ink2 leading-relaxed">
-            Senior PMs and program managers who write the same weekly status report 50 times a year. Risk and compliance teams who need a reproducible, audit-friendly output instead of free-text Slack updates. Anyone whose program data can't go to a cloud model.
-          </p>
-        </div>
-        <div class="lg:col-span-4 flex flex-wrap gap-3 justify-end">
-          <a href="https://github.com/tammychanps/program-status-report-generator" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-ink text-paper px-5 py-3 text-xs uppercase tracking-widest hover:bg-cobalt transition-colors">
-            View on GitHub ↗
-          </a>
-          <a href="../index.html#projects" class="inline-flex items-center gap-2 border border-ink text-ink px-5 py-3 text-xs uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors">
-            ← Back to projects
-          </a>
-        </div>
+      <div class="divider"></div>
+
+      <div class="flex flex-wrap items-center gap-2 mb-8">
+        <span class="text-xs font-semibold text-mute uppercase tracking-wider mr-2">Stack</span>
+        <span class="pill" style="background:#F4EFE2;color:#475569">Python 3.12</span>
+        <span class="pill" style="background:#F4EFE2;color:#475569">LangChain</span>
+        <span class="pill" style="background:#F4EFE2;color:#475569">FAISS</span>
+        <span class="pill" style="background:#F4EFE2;color:#475569">Ollama</span>
       </div>
 
+      <a href="https://github.com/tammychanps/program-status-report-generator" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-blue text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-blueDk transition-colors">
+        View on GitHub <span aria-hidden>→</span>
+      </a>
     </div>
-  </main>
+  </article>
 
-  <footer class="px-6 lg:px-10 border-t border-line bg-paper">
-    <div class="max-w-6xl mx-auto py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-mute">
-      <div>© 2026 Tammy Chan · San Jose, California</div>
-      <div class="mono text-[10px] uppercase tracking-widest">
-        v1.3 · <a href="https://github.com/tammychanps/Portfolio" class="text-ink underline-wipe">Source on GitHub</a>
-      </div>
+  <footer class="px-6 lg:px-10 border-t border-line bg-cream2/50">
+    <div class="max-w-3xl mx-auto py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-mute">
+      <a href="../index.html#projects" class="text-blue ul-wipe font-semibold">← Back to all projects</a>
+      <div>© 2026 Tammy Chan</div>
     </div>
   </footer>
-
 </body>
 </html>
