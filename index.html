@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,9 +15,29 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
+  <script>
+    // Theme init — run before Tailwind/paint to avoid flash
+    (function() {
+      try {
+        var saved = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.classList.remove('light','dark');
+        document.documentElement.classList.add(theme);
+      } catch(e) {}
+    })();
+    function toggleTheme() {
+      var el = document.documentElement;
+      var next = el.classList.contains('dark') ? 'light' : 'dark';
+      el.classList.remove('light','dark');
+      el.classList.add(next);
+      try { localStorage.setItem('theme', next); } catch(e) {}
+    }
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
@@ -46,6 +66,9 @@
 
   <style>
     html { scroll-behavior: smooth; }
+    html, body, header, section, .project-card, .build-card, .contact-card, .photo-wrap, .chip, .sec-icon, .now-row, .build-num, footer, article {
+      transition: background-color 280ms ease, color 280ms ease, border-color 280ms ease;
+    }
     body {
       font-family: 'Inter', system-ui, sans-serif;
       color: #334155;
@@ -55,6 +78,72 @@
       font-feature-settings: "ss01", "cv11";
     }
     section { scroll-margin-top: 80px; }
+
+    /* ─────────  DARK MODE  ───────── */
+    html.dark body { background: #0F172A; color: #CBD5E1; }
+    html.dark header { background: rgba(15, 23, 42, 0.85) !important; border-bottom-color: #334155 !important; }
+    html.dark .bg-cream { background-color: #0F172A !important; }
+    html.dark .bg-cream\/85 { background-color: rgba(15, 23, 42, 0.85) !important; }
+    html.dark .bg-cream2\/60 { background-color: rgba(30, 41, 59, 0.6) !important; }
+    html.dark .bg-cream2\/50 { background-color: rgba(30, 41, 59, 0.5) !important; }
+    html.dark .bg-cream2 { background-color: #1E293B !important; }
+    html.dark .text-ink { color: #F1F5F9 !important; }
+    html.dark .text-ink2 { color: #CBD5E1 !important; }
+    html.dark .text-ink2\/85 { color: rgba(203, 213, 225, 0.85) !important; }
+    html.dark .text-ink2\/80 { color: rgba(203, 213, 225, 0.8) !important; }
+    html.dark .text-mute { color: #94A3B8 !important; }
+    html.dark .border-line { border-color: #334155 !important; }
+    html.dark .bg-white { background-color: #1E293B !important; }
+    html.dark .hover\:text-cream:hover { color: #0F172A !important; }
+    html.dark .hover\:bg-ink:hover { background-color: #F1F5F9 !important; }
+    html.dark .hover\:bg-ink:hover .text-ink { color: #0F172A !important; }
+
+    /* custom class overrides */
+    html.dark .hero-name { color: #F1F5F9; }
+    html.dark .photo-wrap {
+      border-color: #334155;
+      background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+      box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.6);
+    }
+    html.dark .photo-fallback { color: #64748B; }
+    html.dark .chip { background: #1E3A8A; color: #93C5FD; border-color: #1E40AF; }
+    html.dark .sec-icon { background: #1E3A8A; border-color: #1E40AF; }
+    html.dark .now-row { border-top-color: #334155; }
+    html.dark .project-card { background: #1E293B; border-color: #334155; }
+    html.dark .project-card:hover { border-color: #3B82F6; box-shadow: 0 28px 56px -32px rgba(37, 99, 235, 0.5); }
+    html.dark .project-card .img-wrap { background: #0F172A; }
+    html.dark .card-title { color: #F1F5F9; }
+    html.dark .card-excerpt { color: #94A3B8; }
+    html.dark .meta-badge { background: #1E3A8A; color: #93C5FD; }
+    html.dark .build-card { background: #1E293B; border-color: #334155; }
+    html.dark .build-card:hover { border-color: #3B82F6; box-shadow: 0 20px 40px -28px rgba(37, 99, 235, 0.4); }
+    html.dark .build-num { background: #0F172A; }
+    html.dark .contact-card { background: #1E293B; border-color: #334155; }
+    html.dark .contact-card:hover { border-color: #3B82F6; box-shadow: 0 16px 32px -24px rgba(37,99,235,0.4); }
+    html.dark footer { background: #0F172A; border-top-color: #334155; }
+
+    /* infographics: soft border so their cream bg doesn't clash with dark surface */
+    html.dark .project-card .img-wrap img { opacity: 0.92; }
+
+    /* theme toggle button */
+    .theme-toggle {
+      width: 40px; height: 40px;
+      border-radius: 999px;
+      border: 1px solid #E8E1D0;
+      background: transparent;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: #334155;
+      cursor: pointer;
+      transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+    }
+    .theme-toggle:hover { background: #F4EFE2; color: #2563EB; border-color: #2563EB; }
+    html.dark .theme-toggle { border-color: #334155; color: #CBD5E1; }
+    html.dark .theme-toggle:hover { background: #1E293B; color: #60A5FA; border-color: #60A5FA; }
+    .theme-toggle svg { width: 18px; height: 18px; }
+    .theme-toggle .icon-sun { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    html.dark .theme-toggle .icon-sun { display: block; }
+    html.dark .theme-toggle .icon-moon { display: none; }
 
     .hero-name {
       font-weight: 800;
@@ -211,7 +300,10 @@
         <a href="#building" class="nav-link">Building</a>
         <a href="#contact"  class="nav-link">Contact</a>
       </nav>
-      <!-- Resume button removed per Tammy's request -->
+      <button type="button" class="theme-toggle" aria-label="Toggle dark mode" onclick="toggleTheme()">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
     </div>
   </header>
 
